@@ -18,9 +18,11 @@ public class BaseBLL<T> {
 
     public List<T> GetElementImportfileCSV(String filename) {return null;}
 
-    public void Insert(String filename, List<T> lst) {}
+    public T GetElementByID(String ID){return null;}
     
-    public void Update(String filename, List<T> lst) {}
+    public boolean Insert(T OT){return true;}
     
-    public void Delete(String filename, List<T> lst) {}
+    public boolean Update(T OT){return true;}
+    
+    public boolean Delete(T OT){return true;}
 }

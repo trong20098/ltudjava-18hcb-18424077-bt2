@@ -118,21 +118,16 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
-        String filename = "user.csv";
+        String user = txtusername.getText();
+        String pass = new String(txtpassword.getPassword());
+        List<UserObjects> lst = new UserBLL().CheckLogin(user, pass);
         boolean isExisted = false;
-        List<UserObjects> lst = new UserBLL().getElement(filename);
-        int size = lst.size();
-        for (int i = 0; i < size; i++) {
-            String username = txtusername.getText();
-            String password = new String(txtpassword.getPassword());
-            if ((lst.get(i).getUsername().equals(username)) && lst.get(i).getPassword().equals(password)) {
-                isExisted = true;
+        if(lst != null)
+        {
+            isExisted = true;
                 this.setVisible(false);
-                MainSoftware main = new MainSoftware(username);
+                MainSoftware main = new MainSoftware(user);
                 main.setVisible(true);
-                break;
-            }
         }
         if (isExisted == false) {
             JOptionPane.showMessageDialog(this, "Bạn đã đăng nhập thất bại");
@@ -145,23 +140,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnDangNhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDangNhapKeyPressed
-        // TODO add your handling code here:
-        String filename = "user.csv";
+        String user = txtusername.getText();
+        String pass = new String(txtpassword.getPassword());
+        List<UserObjects> lst = new UserBLL().CheckLogin(user, pass);
         boolean isExisted = false;
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            List<UserObjects> lst = new UserBLL().getElement(filename);
-            int size = lst.size();
-            for (int i = 0; i < size; i++) {
-                String username = txtusername.getText();
-                String password = new String(txtpassword.getPassword());
-                if ((lst.get(i).getUsername().equals(username)) && lst.get(i).getPassword().equals(password)) {
-                    isExisted = true;
-                    this.setVisible(false);
-                    MainSoftware main = new MainSoftware(username);
-                    main.setVisible(true);
-                    break;
-                }
-            }
+        if(lst != null)
+        {
+            isExisted = true;
+                this.setVisible(false);
+                MainSoftware main = new MainSoftware(user);
+                main.setVisible(true);
         }
         if (isExisted == false) {
             JOptionPane.showMessageDialog(this, "Bạn đã đăng nhập thất bại");

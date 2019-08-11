@@ -7,21 +7,14 @@ package BussinessLogicLayers.BLL;
 import DataAccessLayers.DAL.*;
 import ValueObjects.*;
 import java.util.List;
+
 /**
  *
  * @author Nguy Minh Trong
  */
 public class UserBLL extends BaseBLL<UserObjects>{
-
-    @Override
-    public List<UserObjects> getElement(String filename) {
-        return new UserDAL().getElement(filename);
+    public List<UserObjects> CheckLogin(String username, String password)
+    {
+        return new UserDAL().CheckLogin(username, password);
     }
-
-    @Override
-    public void Update(String filename, List<UserObjects> lst) {
-        new UserDAL().Update(filename, lst);
-    }
-    
-    
 }

@@ -8,82 +8,40 @@ import ValueObjects.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import org.hibernate.Session;
+import Util.*;
+import org.hibernate.Query;
 
 /**
  *
  * @author Nguy Minh Trong
  */
 public class UserDAL extends BaseDAL<UserObjects>{
-    public static String dir = "src/DataAccessLayers/Database/user";
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<UserObjects> getElement(String filename) {
+    
+    public List<UserObjects> CheckLogin(String username, String password)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         List<UserObjects> lst = new ArrayList<>();
-        FileInputStream fi = null;
-        ObjectInputStream obfi = null;
         try
         {
-            fi = new FileInputStream(new File(dir, filename));
-            obfi = new ObjectInputStream(fi);
-            lst = (List<UserObjects>)obfi.readObject();
+            session.beginTransaction();
+            String hql = "select Username, Password from UserObjects where Username = :username and Password = :password";
+            Query query = session.createQuery(hql);
+            query.setParameter(":username", username);
+            query.setParameter(":password", password);
+            lst = query.list();
         }
-        catch(IOException | ClassNotFoundException ex)
+        catch(Exception ex)
         {
-            ex.getMessage();
-        }finally
+            if(session.getTransaction() != null)
+            {
+                session.getTransaction().rollback();
+            }
+        }
+        finally
         {
-            closeStream(fi);
-            closeStream(obfi);
+            session.close();
         }
         return lst;
-    }
-
-    @Override
-    public void Update(String filename, List<UserObjects> lst) {
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        try
-        {
-            fos = new FileOutputStream(new File(dir, filename));
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(lst);
-        }
-        catch(IOException ex)
-        {
-            ex.getMessage();
-        }finally{
-            closeStream(fos);
-            closeStream(oos);
-        }
-    }
-    
-    private void closeStream(InputStream is)
-    {
-        if(is != null)
-        {
-            try
-            {
-                is.close();
-            }
-            catch(IOException ex)
-            {
-                ex.getMessage();
-            }
-        }
-    }
-    
-    private void closeStream(OutputStream os)
-    {
-        if(os != null)
-        {
-            try
-            {
-                os.close();
-            }
-            catch(IOException ex)
-            {
-                ex.getMessage();
-            }
-        }
     }
 }
