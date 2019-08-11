@@ -11,6 +11,7 @@ import java.io.*;
 import org.hibernate.Session;
 import Util.*;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -44,4 +45,65 @@ public class UserDAL extends BaseDAL<UserObjects>{
         }
         return lst;
     }
+    
+    public UserObjects GetElementByusername(String username)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        UserObjects us = new UserObjects();
+        try
+        {
+            session.beginTransaction();
+            String hql = "from UserObjects where Username = :username";
+            Query query = session.createQuery(hql);
+            query.setParameter("username", username);
+            List<UserObjects> lst = query.list();
+            int size = lst.size();
+            for(int i = 0; i < size; i++)
+            {
+                us.setAccountID(lst.get(i).getAccountID());
+                us.setUsername(lst.get(i).getUsername());
+                us.setPassword(lst.get(i).getPassword());
+                us.setStudentID(lst.get(i).getStudentID());
+            }
+            
+        }
+        catch(Exception ex)
+        {
+            if(session.getTransaction() != null)
+            {
+                session.getTransaction().rollback();
+            }
+        }
+        finally
+        {
+            session.close();
+        }
+        return us;
+    }
+
+    @Override
+    public boolean Update(UserObjects OT) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(GetElementByusername(OT.getUsername()) == null)
+        {
+            return false;
+        }
+        Transaction transaction = null;
+        try
+        {
+            transaction = session.beginTransaction();
+            session.update(OT);
+            transaction.commit();
+        }
+        catch(Exception ex)
+        {
+            transaction.rollback();
+        }
+        finally
+        {
+            session.close();
+        }
+        return true;
+    }
+    
 }

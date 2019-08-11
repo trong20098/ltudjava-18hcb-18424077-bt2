@@ -326,7 +326,13 @@ public class MainSoftware extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDiemActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-
+        ChangePassword cp = new ChangePassword(user);
+        cp.setVisible(true);
+        jDesktopPane1.removeAll();
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension internalFramesize = cp.getSize();
+        cp.setLocation((desktopSize.width - internalFramesize.width) / 2, (desktopSize.height - internalFramesize.height) / 2);
+        jDesktopPane1.add(cp);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed

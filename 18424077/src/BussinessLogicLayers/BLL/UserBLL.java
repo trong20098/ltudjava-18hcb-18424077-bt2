@@ -17,4 +17,16 @@ public class UserBLL extends BaseBLL<UserObjects>{
     {
         return new UserDAL().CheckLogin(username, password);
     }
+    
+    public UserObjects GetElementByusername(String username)
+    {
+        return new UserDAL().GetElementByusername(username);
+    }
+
+    @Override
+    public boolean Update(UserObjects OT) {
+        return new UserDAL().Update(OT);
+    }
+    
+    
 }

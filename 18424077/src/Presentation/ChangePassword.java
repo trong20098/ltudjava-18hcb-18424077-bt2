@@ -14,8 +14,7 @@ import javax.swing.*;
  * @author Nguy Minh Trong
  */
 public class ChangePassword extends javax.swing.JInternalFrame {
-    private final String username = null;
-    private static String user;
+    private final String user;
     /**
      * Creates new form ChangePassword
      * @param username
@@ -140,7 +139,7 @@ public class ChangePassword extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        String filename = "user.csv";
+
         char[] passold = txtMatKhauCu.getPassword();
         String passol = new String(passold);
         char[] pass = txtMatKhauMoi.getPassword();
@@ -149,22 +148,20 @@ public class ChangePassword extends javax.swing.JInternalFrame {
         String xacnhanmatkhau = new String(confirmpass);
         if(matkhau.equals(xacnhanmatkhau))
         {
-            boolean isExisted = false;
-            List<UserObjects> lst = new UserBLL().getElement(filename);
-            int size = lst.size();
-            for(int i=0; i < size; i++)
+            UserObjects us = new UserBLL().GetElementByusername(user);
+            if(us != null && us.getPassword().equals(passol))
             {
-                if(lst.get(i).getUsername().equals(user) && lst.get(i).getPassword().equals(passol))
-                {
-                    isExisted = true;
-                    lst.get(i).setPassword(matkhau);
-                    break;
-                }
+                us.setPassword(matkhau);
             }
-            if(isExisted == true)
+            boolean kq = new UserBLL().Update(us);
+            if(kq == true)
             {
-                new UserBLL().Update(filename, lst);
+                JOptionPane.showMessageDialog(this, "Bạn đã cập nhật thành công");
                 this.setVisible(false);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Bạn đã cập nhật không thành công");
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed

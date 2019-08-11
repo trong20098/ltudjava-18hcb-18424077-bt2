@@ -122,12 +122,11 @@ public class Login extends javax.swing.JFrame {
         String pass = new String(txtpassword.getPassword());
         List<UserObjects> lst = new UserBLL().CheckLogin(user, pass);
         boolean isExisted = false;
-        if(lst != null)
-        {
+        if (lst != null) {
             isExisted = true;
-                this.setVisible(false);
-                MainSoftware main = new MainSoftware(user);
-                main.setVisible(true);
+            this.setVisible(false);
+            MainSoftware main = new MainSoftware(user);
+            main.setVisible(true);
         }
         if (isExisted == false) {
             JOptionPane.showMessageDialog(this, "Bạn đã đăng nhập thất bại");
@@ -144,12 +143,11 @@ public class Login extends javax.swing.JFrame {
         String pass = new String(txtpassword.getPassword());
         List<UserObjects> lst = new UserBLL().CheckLogin(user, pass);
         boolean isExisted = false;
-        if(lst != null)
-        {
+        if (lst != null) {
             isExisted = true;
-                this.setVisible(false);
-                MainSoftware main = new MainSoftware(user);
-                main.setVisible(true);
+            this.setVisible(false);
+            MainSoftware main = new MainSoftware(user);
+            main.setVisible(true);
         }
         if (isExisted == false) {
             JOptionPane.showMessageDialog(this, "Bạn đã đăng nhập thất bại");
