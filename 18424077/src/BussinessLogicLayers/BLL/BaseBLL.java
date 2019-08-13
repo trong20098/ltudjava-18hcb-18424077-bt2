@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BaseBLL<T> {
 
-    public List<T> getElement(String filename) {return null;}
+    public List<T> getElement() {return null;}
 
     public List<T> GetElementImportfileCSV(String filename) {return null;}
 
