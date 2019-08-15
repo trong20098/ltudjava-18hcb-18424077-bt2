@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Session;
 import Util.*;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -36,5 +37,48 @@ public class ClassDAL extends BaseDAL<ClassObjects>{
         }
         return lst;
     }
-    
+
+    @Override
+    public ClassObjects GetElementByID(String ID) {
+        ClassObjects cl = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            cl = (ClassObjects) session.get(ClassObjects.class, ID);
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return cl;
+    }
+
+    @Override
+    public boolean Insert(ClassObjects OT) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(GetElementByID(OT.getMaLop()) != null)
+        {
+            return false;
+        }
+        Transaction transaction = null;
+        try
+        {
+            transaction = session.beginTransaction();
+            session.save(OT);
+            transaction.commit();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return true;
+    }
 }

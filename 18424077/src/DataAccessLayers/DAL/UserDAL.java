@@ -7,7 +7,6 @@ package DataAccessLayers.DAL;
 import ValueObjects.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 import org.hibernate.Session;
 import Util.*;
 import org.hibernate.Query;
@@ -28,8 +27,8 @@ public class UserDAL extends BaseDAL<UserObjects>{
             session.beginTransaction();
             String hql = "select Username, Password from UserObjects where Username = :username and Password = :password";
             Query query = session.createQuery(hql);
-            query.setParameter(":username", username);
-            query.setParameter(":password", password);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
             lst = query.list();
         }
         catch(Exception ex)

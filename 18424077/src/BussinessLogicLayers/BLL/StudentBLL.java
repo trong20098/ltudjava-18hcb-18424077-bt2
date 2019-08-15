@@ -14,8 +14,8 @@ import ValueObjects.*;
  */
 public class StudentBLL extends BaseBLL<StudentObjects>{
     @Override
-    public List<StudentObjects> getElement(String filename) {
-        return new StudentDAL().getElement(filename);
+    public List<StudentObjects> getElement() {
+        return new StudentDAL().getElement();
     }
 
     @Override
@@ -23,4 +23,18 @@ public class StudentBLL extends BaseBLL<StudentObjects>{
         return new StudentDAL().GetElementImportfileCSV(filename);
     }
 
+    public List<StudentObjects> getElementByMaLop(String malop) {
+        return new StudentDAL().getElementByMaLop(malop);
+    }
+
+    @Override
+    public StudentObjects GetElementByID(String ID) {
+        return new StudentDAL().GetElementByID(ID);
+    }
+
+    @Override
+    public boolean Insert(StudentObjects OT) {
+        return new StudentDAL().Insert(OT);
+    }
+    
 }

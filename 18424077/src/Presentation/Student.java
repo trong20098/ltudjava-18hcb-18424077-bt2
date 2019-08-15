@@ -9,7 +9,6 @@ import ValueObjects.*;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import BussinessLogicLayers.BLL.*;
-import java.awt.HeadlessException;
 import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -32,17 +31,17 @@ public final class Student extends javax.swing.JInternalFrame {
         filestudent = new JFileChooser();
         filestudent.setCurrentDirectory(new File("C:\\Users\\Nguy Minh Trong\\Desktop"));
         filestudent.setFileFilter(new FileNameExtensionFilter("File CSV", "csv"));
+        filestudent.setMultiSelectionEnabled(true);
         Loadlistlopcuasinhvien();
         Loadlistlop();
-        String malop = cbxLop.getItemAt(0);
+        String malop = cbxLop.getItemAt(1);
         LoadSinhVien(malop);
         cbxLop.removeItemAt(0);
     }
 
     public void Loadlistlopcuasinhvien() {
         List<ClassObjects> lst = new ClassBLL().getElement();
-        for(int i = 0; i < lst.size(); i++)
-        {
+        for (int i = 0; i < lst.size(); i++) {
             ClassObjects cl = lst.get(i);
             cbbLop.addItem(cl.getMaLop());
         }
@@ -50,8 +49,8 @@ public final class Student extends javax.swing.JInternalFrame {
 
     public void Loadlistlop() {
         List<ClassObjects> lst = new ClassBLL().getElement();
-        for(int i = 0; i < lst.size(); i++)
-        {
+        cbxLop.addItem("Bạn hãy chọn lớp");
+        for (int i = 0; i < lst.size(); i++) {
             ClassObjects cl = lst.get(i);
             cbxLop.addItem(cl.getMaLop());
         }
@@ -59,8 +58,8 @@ public final class Student extends javax.swing.JInternalFrame {
 
     @SuppressWarnings("unchecked")
     public void LoadSinhVien(String malop) {
-        List<StudentObjects> lst = new StudentBLL().getElement(file);
-        if (!lst.isEmpty()) {
+        List<StudentObjects> lst = new StudentBLL().getElementByMaLop(malop);
+        if (lst != null) {
             DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
             model.setRowCount(0);
             String[] columnsName = {"STT", "MSSV", "Họ tên", "Giới tính", "CMND"};
@@ -78,9 +77,14 @@ public final class Student extends javax.swing.JInternalFrame {
                 i++;
             }
             tblDanhSach.setModel(model);
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"STT", "MSSV", "Họ tên", "Giới tính", "CMND"};
+            model.setColumnIdentifiers(columnsName);
         }
     }
-    
+
     public void LoadImportFileSinhVien(String file) {
         List<StudentObjects> lst = new StudentBLL().GetElementImportfileCSV(file);
         if (!lst.isEmpty()) {
@@ -357,118 +361,70 @@ public final class Student extends javax.swing.JInternalFrame {
 
     private void btnDanhSachLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLopActionPerformed
         int returnvalue = filestudent.showOpenDialog(this);
-        String dir = "src/DataAccessLayers/Database/SinhVien";
         if (returnvalue == JFileChooser.APPROVE_OPTION) {
-            File file = filestudent.getSelectedFile();
-            try {
-                filename = file.toString();
-                String files = filename(filename, '\\', '.');
-                File f = new File(dir, files + ".csv");
-                if (f.exists()) {
-                    List<StudentObjects> lst = new StudentBLL().getElement(files + ".csv");
+            File[] files = filestudent.getSelectedFiles();
+            for (File file : files) {
+                try {
+                    filename = file.toString();
+                    String fi = filename(filename, '\\', '.');
+                    ClassObjects cl = new ClassObjects();
+                    cl.setMaLop(fi);
+                    new ClassBLL().Insert(cl);
                     List<StudentObjects> lstimportdanhsach = new StudentBLL().GetElementImportfileCSV(filename);
-                    List<StudentObjects> lstst = new ArrayList<>(lst);
-                    lstst.addAll(lstimportdanhsach);
-                    int size = lstst.size();
+                    int size = lstimportdanhsach.size();
                     for(int i = 0; i < size; i++)
                     {
-                        for(int j = i + 1;j < size; j++)
-                        {
-                            if(lstst.get(i).getMSSV().equals(lstst.get(j).getMSSV()))
-                            {
-                                lstst.remove(lstst.get(j));
-                                size = size - 1;
-                            }
-                        } 
+                        StudentObjects st = new StudentObjects();
+                        st.setMSSV(lstimportdanhsach.get(i).getMSSV());
+                        st.setHoten(lstimportdanhsach.get(i).getHoten());
+                        st.setGioitinh(lstimportdanhsach.get(i).getGioitinh());
+                        st.setCMND(lstimportdanhsach.get(i).getCMND());
+                        st.setClassName(fi);
+                        new StudentBLL().Insert(st);
                     }
-                    new StudentBLL().Insert(files + ".csv", lstst);
-                    List<ScheduledObjects> lstmonhoc = new ScheduledBLL().getElement(files + ".csv");
-                    lstmonhoc.forEach((sc) -> {
-                        new ClassSubjectsBLL().Insert(files + "-" + sc.getMaMon() + ".csv", lstst);
-                    });
-                    List<UserObjects> lstuser = new UserBLL().getElement("user.csv");
-                    int size1 = lstst.size();
-                    UserObjects us = new UserObjects();
-                    for(int l = 0; l < size1; l++)
-                    {
-                        us.setUsername(lstst.get(l).getMSSV());
-                        us.setPassword(lstst.get(l).getMSSV());
-                        lstuser.add(us);
-                    }
-                    int size2 = lstuser.size();
-                    for(int q = 0; q < size2; q++)
-                    {
-                        for(int w = q + 1;w < size2; w++)
-                        {
-                            if(lstuser.get(q).getUsername().equals(lstuser.get(w).getUsername()))
-                            {
-                                lstuser.remove(lstuser.get(w));
-                                size = size - 1;
-                            }
-                        } 
-                    }
-                    new UserBLL().Update(files + ".csv", lstuser);
-                    LoadSinhVien(files + ".csv");
+                    LoadSinhVien(fi);
                     cbbLop.removeAllItems();
                     cbxLop.removeAllItems();
                     Loadlistlop();
                     Loadlistlopcuasinhvien();
                     cbxLop.removeItemAt(0);
-                    cbxLop.setSelectedItem(files);
-                } else {
-                    List<StudentObjects> lstimportdanhsach = new StudentBLL().GetElementImportfileCSV(filename);
-                    new StudentBLL().Insert(files + ".csv", lstimportdanhsach);
-                    List<ScheduledObjects> lstmonhoc = new ScheduledBLL().getElement(files + ".csv");
-                    for(ScheduledObjects sc : lstmonhoc)
-                    {
-                        new ClassSubjectsBLL().Insert(files + "-" + sc.getMaMon() + ".csv", lstimportdanhsach);
-                    }
-                    LoadImportFileSinhVien(file.toString());
-                    cbbLop.removeAllItems();
-                    cbxLop.removeAllItems();
-                    Loadlistlop();
-                    Loadlistlopcuasinhvien();
-                    cbxLop.removeItemAt(0);
-                    cbxLop.setSelectedItem(files);
+                    cbxLop.setSelectedItem(fi);
+                } catch (Exception ex) {
+                    ex.getMessage();
                 }
-            } catch (HeadlessException ex) {
-                ex.getMessage();
             }
         }
     }//GEN-LAST:event_btnDanhSachLopActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
-        List<StudentObjects> lst = new StudentBLL().getElement(filename);
-        String mssv = txtMSSV.getText();
-        String hoten = txtHoTen.getText();
-        String lop = cbxLop.getSelectedItem() + ".csv";
-        String gioitinh = null;
-        if (radNam.isSelected()) {
-            gioitinh = "Nam";
-        } else {
-            if (radNu.isSelected()) {
-                gioitinh = "Nữ";
-            }
-        }
-        String cmnd = txtCMND.getText();
-        for (StudentObjects st : lst) {
-            if (mssv.equals(st.getMSSV())) {
-                JOptionPane.showMessageDialog(this, "Mã số sinh viên " + mssv + " này đã tồn tại");
-            }
-        }
         StudentObjects st = new StudentObjects();
-        st.setMSSV(mssv);
-        st.setHoten(hoten);
-        st.setGioitinh(gioitinh);
-        st.setCMND(cmnd);
-        lst.add(st);
-        new StudentBLL().Insert(lop, lst);
-        LoadSinhVien(lop);
+        st.setMSSV(txtMSSV.getText());
+        st.setHoten(txtHoTen.getText());
+        if(radNam.isSelected())
+        {
+            st.setGioitinh((short)0);
+        }
+        else
+        {
+            st.setGioitinh((short)1);
+        }
+        st.setCMND(txtCMND.getText());
+        st.setClassName((String)cbbLop.getSelectedItem());
+        boolean KQ = new StudentBLL().Insert(st);
+        if(KQ == true)
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã nhập thành công");
+            LoadSinhVien((String)cbbLop.getSelectedItem());
+            cbxLop.setSelectedItem((String)cbbLop.getSelectedItem());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã nhập không thành công");
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void cbxLopItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxLopItemStateChanged
-        filename = cbxLop.getSelectedItem() + ".csv";
+        filename = (String)cbxLop.getSelectedItem();
         LoadSinhVien(filename);
     }//GEN-LAST:event_cbxLopItemStateChanged
 

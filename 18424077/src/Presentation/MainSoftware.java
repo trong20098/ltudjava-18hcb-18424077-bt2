@@ -314,7 +314,10 @@ public class MainSoftware extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnDanhSachLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLopActionPerformed
-
+        Student st = new Student();
+        st.setVisible(true);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(st);
     }//GEN-LAST:event_btnDanhSachLopActionPerformed
 
     private void btnThoiKhoaBieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoiKhoaBieuActionPerformed

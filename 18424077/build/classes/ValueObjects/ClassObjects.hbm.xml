@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,14 +38,22 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_studentmanagement?characterEncoding=UTF-8</property>
-    <property name="hibernate.connection.username">root</property>
-    <mapping resource="ValueObjects/UserObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/ClassObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/StudentObjects.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ValueObjects.ClassObjects" table="tbllop">
+        <id name="MaLop" type="string">
+            <column length="10" name="MaLop"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="TenLop" type="string">
+            <column length="50" name="TenLop"/>
+        </property>
+        <property name="GhiChu" type="string">
+            <column length="255" name="Ghichu"/>
+        </property>
+    </class>
+</hibernate-mapping>

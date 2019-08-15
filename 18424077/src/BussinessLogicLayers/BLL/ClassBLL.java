@@ -17,5 +17,11 @@ public class ClassBLL extends BaseBLL<ClassObjects>{
     public List<ClassObjects> getElement() {
         return new ClassDAL().getElement();
     }
+
+    @Override
+    public boolean Insert(ClassObjects OT) {
+        return new ClassDAL().Insert(OT);
+    }
+    
     
 }

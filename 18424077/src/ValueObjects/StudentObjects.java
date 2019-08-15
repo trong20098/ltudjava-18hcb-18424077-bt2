@@ -11,18 +11,12 @@ import java.io.*;
  */
 public class StudentObjects implements Serializable{
     private static final long serialVersionUID = 1L;
-    private String MSSV, Hoten, CMND, Gioitinh, ClassName;
-    private int STT;
-    
-    public int getSTT()
-    {
-        return STT;
-    }
-    
-    public int setSTT(int STT)
-    {
-        return STT;
-    }
+    private String MSSV;
+    private String Hoten;
+    private short Gioitinh;
+    private String CMND;
+    private String ClassName;
+
     public String getMSSV() {
         return MSSV;
     }
@@ -39,11 +33,11 @@ public class StudentObjects implements Serializable{
         this.Hoten = Hoten;
     }
     
-    public String getGioitinh() {
+    public short getGioitinh() {
         return Gioitinh;
     }
-    
-    public void setGioitinh(String Gioitinh) {
+
+    public void setGioitinh(short Gioitinh) {
         this.Gioitinh = Gioitinh;
     }
     
