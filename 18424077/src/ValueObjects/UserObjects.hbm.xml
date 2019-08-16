@@ -45,8 +45,8 @@ Contributor(s):
 
 <hibernate-mapping>
     <class name="ValueObjects.UserObjects" table="tblaccount">
-        <id name="accountID" type="int">
-            <column length="11" name="AccountID"/>
+        <id name="accountID" type="integer">
+            <column length="11" name="AccountID" not-null = "true"/>
             <generator class="increment"/>
         </id>
         <property name="Username" type="string">

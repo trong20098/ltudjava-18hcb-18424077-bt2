@@ -18,9 +18,6 @@ import org.hibernate.Transaction;
  * @author Nguy Minh Trong
  */
 public class StudentDAL extends BaseDAL<StudentObjects>{
-
-    private final String dir = "src/DataAccessLayers/Database/SinhVien";
-
     @Override
     public List<StudentObjects> getElement() {
         List<StudentObjects> lst = null;

@@ -372,15 +372,19 @@ public final class Student extends javax.swing.JInternalFrame {
                     new ClassBLL().Insert(cl);
                     List<StudentObjects> lstimportdanhsach = new StudentBLL().GetElementImportfileCSV(filename);
                     int size = lstimportdanhsach.size();
-                    for(int i = 0; i < size; i++)
-                    {
+                    for (int i = 0; i < size; i++) {
                         StudentObjects st = new StudentObjects();
                         st.setMSSV(lstimportdanhsach.get(i).getMSSV());
                         st.setHoten(lstimportdanhsach.get(i).getHoten());
                         st.setGioitinh(lstimportdanhsach.get(i).getGioitinh());
                         st.setCMND(lstimportdanhsach.get(i).getCMND());
                         st.setClassName(fi);
+                        UserObjects us = new UserObjects();
+                        us.setUsername(lstimportdanhsach.get(i).getMSSV());
+                        us.setPassword(lstimportdanhsach.get(i).getMSSV());
+                        us.setStudentID(lstimportdanhsach.get(i).getMSSV());
                         new StudentBLL().Insert(st);
+                        new UserBLL().Insert(us);
                     }
                     LoadSinhVien(fi);
                     cbbLop.removeAllItems();
@@ -400,31 +404,30 @@ public final class Student extends javax.swing.JInternalFrame {
         StudentObjects st = new StudentObjects();
         st.setMSSV(txtMSSV.getText());
         st.setHoten(txtHoTen.getText());
-        if(radNam.isSelected())
-        {
-            st.setGioitinh((short)0);
-        }
-        else
-        {
-            st.setGioitinh((short)1);
+        if (radNam.isSelected()) {
+            st.setGioitinh((short) 0);
+        } else {
+            st.setGioitinh((short) 1);
         }
         st.setCMND(txtCMND.getText());
-        st.setClassName((String)cbbLop.getSelectedItem());
+        st.setClassName((String) cbbLop.getSelectedItem());
         boolean KQ = new StudentBLL().Insert(st);
-        if(KQ == true)
-        {
+        UserObjects us = new UserObjects();
+        us.setUsername(txtMSSV.getText());
+        us.setPassword(txtMSSV.getText());
+        us.setStudentID(txtMSSV.getText());
+        new UserBLL().Insert(us);
+        if (KQ == true) {
             JOptionPane.showMessageDialog(this, "Bạn đã nhập thành công");
-            LoadSinhVien((String)cbbLop.getSelectedItem());
-            cbxLop.setSelectedItem((String)cbbLop.getSelectedItem());
-        }
-        else
-        {
+            LoadSinhVien((String) cbbLop.getSelectedItem());
+            cbxLop.setSelectedItem((String) cbbLop.getSelectedItem());
+        } else {
             JOptionPane.showMessageDialog(this, "Bạn đã nhập không thành công");
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void cbxLopItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxLopItemStateChanged
-        filename = (String)cbxLop.getSelectedItem();
+        filename = (String) cbxLop.getSelectedItem();
         LoadSinhVien(filename);
     }//GEN-LAST:event_cbxLopItemStateChanged
 

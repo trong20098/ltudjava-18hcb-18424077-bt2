@@ -216,7 +216,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnDiem" min="-2" pref="118" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblLopMonHoc" min="-2" pref="207" max="-2" attributes="0"/>
+                  <Component id="btnLopMonHoc" min="-2" pref="207" max="-2" attributes="0"/>
                   <EmptySpace pref="166" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -228,7 +228,7 @@
                       <Component id="btnDiem" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnDanhSachLop" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnThoiKhoaBieu" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblLopMonHoc" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnLopMonHoc" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -308,7 +308,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDiemActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="lblLopMonHoc">
+        <Component class="javax.swing.JButton" name="btnLopMonHoc">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="1"/>
@@ -327,7 +327,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblLopMonHocActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLopMonHocActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

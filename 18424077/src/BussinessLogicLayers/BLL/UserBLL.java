@@ -27,6 +27,10 @@ public class UserBLL extends BaseBLL<UserObjects>{
     public boolean Update(UserObjects OT) {
         return new UserDAL().Update(OT);
     }
-    
+
+    @Override
+    public boolean Insert(UserObjects OT) {
+        return new UserDAL().Insert(OT);
+    }
     
 }

@@ -104,5 +104,30 @@ public class UserDAL extends BaseDAL<UserObjects>{
         }
         return true;
     }
+
+    @Override
+    public boolean Insert(UserObjects OT) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(GetElementByusername(OT.getUsername()) != null)
+        {
+            return false;
+        }
+        Transaction transaction = null;
+        try
+        {
+            transaction = session.beginTransaction();
+            session.save(OT);
+            transaction.commit();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return true;
+    }
     
 }

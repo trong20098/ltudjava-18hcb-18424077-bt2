@@ -58,7 +58,7 @@ public class MainSoftware extends javax.swing.JFrame {
         btnDanhSachLop = new javax.swing.JButton();
         btnThoiKhoaBieu = new javax.swing.JButton();
         btnDiem = new javax.swing.JButton();
-        lblLopMonHoc = new javax.swing.JButton();
+        btnLopMonHoc = new javax.swing.JButton();
         pnHoTro = new javax.swing.JPanel();
         btnThoat = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -189,16 +189,16 @@ public class MainSoftware extends javax.swing.JFrame {
             }
         });
 
-        lblLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lblLopMonHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Book1.png"))); // NOI18N
-        lblLopMonHoc.setText("Danh Sách Lớp Theo Môn Học");
-        lblLopMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblLopMonHoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblLopMonHoc.setOpaque(false);
-        lblLopMonHoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        lblLopMonHoc.addActionListener(new java.awt.event.ActionListener() {
+        btnLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnLopMonHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Book1.png"))); // NOI18N
+        btnLopMonHoc.setText("Danh Sách Lớp Theo Môn Học");
+        btnLopMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLopMonHoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLopMonHoc.setOpaque(false);
+        btnLopMonHoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLopMonHoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblLopMonHocActionPerformed(evt);
+                btnLopMonHocActionPerformed(evt);
             }
         });
 
@@ -214,7 +214,7 @@ public class MainSoftware extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         pnChucNangLayout.setVerticalGroup(
@@ -224,7 +224,7 @@ public class MainSoftware extends javax.swing.JFrame {
                     .addComponent(btnDiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDanhSachLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThoiKhoaBieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -321,7 +321,10 @@ public class MainSoftware extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDanhSachLopActionPerformed
 
     private void btnThoiKhoaBieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoiKhoaBieuActionPerformed
-
+        Scheduled sc = new Scheduled();
+        sc.setVisible(true);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(sc);
     }//GEN-LAST:event_btnThoiKhoaBieuActionPerformed
 
     private void btnDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemActionPerformed
@@ -346,9 +349,12 @@ public class MainSoftware extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnXemDiemActionPerformed
 
-    private void lblLopMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLopMonHocActionPerformed
-
-    }//GEN-LAST:event_lblLopMonHocActionPerformed
+    private void btnLopMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLopMonHocActionPerformed
+        ClassSubjects cs = new ClassSubjects();
+        cs.setVisible(true);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(cs);
+    }//GEN-LAST:event_btnLopMonHocActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -357,6 +363,7 @@ public class MainSoftware extends javax.swing.JFrame {
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnDanhSachLop;
     private javax.swing.JButton btnDiem;
+    private javax.swing.JButton btnLopMonHoc;
     private javax.swing.JButton btnThoat;
     private javax.swing.JButton btnThoiKhoaBieu;
     private javax.swing.JButton btnXemDiem;
@@ -364,7 +371,6 @@ public class MainSoftware extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JButton lblLopMonHoc;
     private javax.swing.JPanel pnChucNang;
     private javax.swing.JPanel pnHoTro;
     private javax.swing.JPanel pnThongTinChung;
