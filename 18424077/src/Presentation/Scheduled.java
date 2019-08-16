@@ -7,12 +7,10 @@ package Presentation;
 
 import ValueObjects.*;
 import BussinessLogicLayers.BLL.*;
-import java.awt.HeadlessException;
 import java.io.File;
 import javax.swing.table.DefaultTableModel;
 import java.util.*;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -230,6 +228,17 @@ public final class Scheduled extends javax.swing.JInternalFrame {
                         sc.setHocky(hocky);
                         sc.setNamHoc(namhoc);
                         sc.setPhongHoc(lstimportdanhsach.get(i).getPhonghoc());
+                        List<StudentObjects> liststudent = new StudentBLL().getElementByMaLop(fi);
+                        int size1 = liststudent.size();
+                        for(int j = 0; j < size1; j++)
+                        {
+                            ClassSubjectsObjects cs = new ClassSubjectsObjects();
+                            cs.setMaLop(fi);
+                            cs.setMaMon(lstimportdanhsach.get(i).getMaMon());
+                            cs.setStudentID(liststudent.get(j).getMSSV());
+                            cs.setStatus(0);
+                            new ClassSubjectsBLL().Insert(cs);
+                        }
                         new ScheduledBLL().Insert(sc);
                         new SubjectsObjectsBLL().Insert(su);
                     }

@@ -44,7 +44,7 @@ Contributor(s):
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ValueObjects.ClassSubjectsObjects" table="tbllop">
+    <class name="ValueObjects.ClassSubjectsObjects" table="tbllopmonhoc">
         <id name="MaLop" type="string">
             <column length="10" name="MaLop"/>
             <generator class="assigned"/>

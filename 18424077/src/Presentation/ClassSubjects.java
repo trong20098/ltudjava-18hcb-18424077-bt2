@@ -27,19 +27,14 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     public ClassSubjects() {
         initComponents();
         LopMonHoc();
-        Lop();
+        String lopmonhoc = cbbLopMonHoc.getItemAt(1);
     }
 
     public final void LopMonHoc() {
-        try {
-            File f = new File("src/DataAccessLayers/Database/Lop Theo Mon");
-            String[] files = f.list();
-            for (String file : files) {
-                cbbLopMonHoc.addItem(filename(file, '/', '.'));
-            }
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
+        List<ScheduledObjects> lst = new ScheduledBLL().getElement();
+        lst.forEach((lop) -> {
+            cbbLopMonHoc.addItem(lop.getMaLop() + '-' + lop.getMaMon());
+        });
     }
 
     public final void Lop() {
@@ -55,28 +50,29 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
         }
     }
 
-    public void LoadSinhVien(String filename) {
-//        List<StudentObjects> lst = new ClassSubjectsBLL().getElement(filename);
-//        if (lst.isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Không có dữ liệu");
-//        }
-//        DefaultTableModel model = (DefaultTableModel) tblDanhSachLopMonHoc.getModel();
-//        model.setRowCount(0);
-//        String[] columnsName = {"STT", "MSSV", "Họ tên", "Giới tính", "CMND"};
-//        model.setColumnIdentifiers(columnsName);
-//        int i = 1;
-//        for (StudentObjects st : lst) {
-//            Vector row = new Vector();
-//            String number = Integer.toString(i);
-//            row.add(number);
-//            row.add(st.getMSSV());
-//            row.add(st.getHoten());
-//            row.add(st.getGioitinh());
-//            row.add(st.getCMND());
-//            model.addRow(row);
-//            i++;
-//        }
-//        tblDanhSachLopMonHoc.setModel(model);
+    public void LoadSinhVien(String malop, String mamon) {
+        List<ClassSubjectsObjects> lst = new ClassSubjectsBLL().GetElementByLopAndMonHoc(malop, mamon);
+        if (lst.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu");
+        }
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachLopMonHoc.getModel();
+        model.setRowCount(0);
+        String[] columnsName = {"STT", "MSSV", "Họ tên", "Giới tính", "CMND"};
+        model.setColumnIdentifiers(columnsName);
+        int i = 1;
+        for (ClassSubjectsObjects cs : lst) {
+            Vector row = new Vector();
+            String number = Integer.toString(i);
+            row.add(number);
+            StudentObjects st = new StudentBLL().GetElementByID(cs.getStudentID());
+            row.add(st.getMSSV());
+            row.add(st.getHoten());
+            row.add(st.getGioitinh());
+            row.add(st.getCMND());
+            model.addRow(row);
+            i++;
+        }
+        tblDanhSachLopMonHoc.setModel(model);
     }
 
     public static String filename(String str, char sep, char ext) {
@@ -345,8 +341,9 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblDanhSachLopMonHocMouseClicked
 
     private void cbbLopMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbLopMonHocActionPerformed
-        filename = cbbLopMonHoc.getSelectedItem() + ".csv";
-        LoadSinhVien(filename);
+        String lopmonhoc = (String) cbbLopMonHoc.getSelectedItem();
+        String[] lmh = lopmonhoc.split("-");
+        LoadSinhVien(lmh[0], lmh[1]);
     }//GEN-LAST:event_cbbLopMonHocActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -420,11 +417,10 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
 //        });
     }//GEN-LAST:event_cbbLopActionPerformed
 
-    class sortbyroll implements Comparator<StudentObjects>
-    {
+    class sortbyroll implements Comparator<StudentObjects> {
+
         @Override
-        public int compare(StudentObjects a, StudentObjects b)
-        {
+        public int compare(StudentObjects a, StudentObjects b) {
             return Integer.parseInt(a.getMSSV()) - Integer.parseInt(b.getMSSV());
         }
     }
