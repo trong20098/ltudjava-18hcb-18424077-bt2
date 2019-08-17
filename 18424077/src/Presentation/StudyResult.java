@@ -78,7 +78,7 @@ public final class StudyResult extends javax.swing.JInternalFrame {
             int Dau = 0, Rot = 0, TileDau, TileRot;
             int size = lst.size();
             for (int j = 0; j < size; j++) {
-                if (lst.get(i).getDiemTong() >= 5) {
+                if (lst.get(j).getDiemTong() >= 5) {
                     Dau = Dau + 1;
                 } else {
                     Rot = Rot + 1;

@@ -26,5 +26,11 @@ public class StudyResultBLL extends BaseBLL<StudyResultObjects>{
     public boolean Insert(StudyResultObjects OT) {
         return new StudyResultDAL().Insert(OT);
     }
+
+    @Override
+    public boolean Update(StudyResultObjects OT) {
+        return new StudyResultDAL().Update(OT);
+    }
+    
     
 }

@@ -45,6 +45,7 @@ public class StudyResultDAL extends BaseDAL<StudyResultObjects>{
     public StudyResultObjects GetElementByMaLopAndMaMonAndStudentID(String malop, String mamon, String studentid)
     {
         StudyResultObjects sr = null;
+        List<StudyResultObjects> lst = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
@@ -53,17 +54,11 @@ public class StudyResultDAL extends BaseDAL<StudyResultObjects>{
             query.setParameter("malop", malop);
             query.setParameter("mamon", mamon);
             query.setParameter("studentid", studentid);
-            List<StudyResultObjects> lst = query.list();
+            lst = query.list();
             int size = lst.size();
             for(int i = 0; i < size; i++)
             {
-                sr.setMaLop(lst.get(i).getMaLop());
-                sr.setMaMon(lst.get(i).getMaMon());
-                sr.setStudentID(lst.get(i).getStudentID());
-                sr.setDiemGK(lst.get(i).getDiemGK());
-                sr.setDiemCK(lst.get(i).getDiemCK());
-                sr.setDiemKhac(lst.get(i).getDiemKhac());
-                sr.setDiemTong(lst.get(i).getDiemTong());
+                sr = lst.get(i);
             }
         }
         catch(Exception ex)
