@@ -51,5 +51,6 @@ Contributor(s):
     <mapping resource="ValueObjects/SubjectsObjects.hbm.xml"/>
     <mapping resource="ValueObjects/ScheduledObjects.hbm.xml"/>
     <mapping resource="ValueObjects/ClassSubjectsObjects.hbm.xml"/>
+    <mapping resource="ValueObjects/StudyResultObjects.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

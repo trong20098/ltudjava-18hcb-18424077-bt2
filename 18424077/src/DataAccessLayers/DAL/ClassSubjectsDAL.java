@@ -78,19 +78,96 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         }
         return cs;
     }
+    
+    public ClassSubjectsObjects GetElementByMaLopAndMaMonAndStudentID(String malop, String mamon, String studentID)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        ClassSubjectsObjects cs = null;
+        try {
+            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and StudentID = :studentID";
+            Query query = session.createQuery(hql);
+            query.setParameter("MaLop", malop);
+            query.setParameter("MaMon", mamon);
+            query.setParameter("StudentID", studentID);
+            List<ClassSubjectsObjects> lst = query.list();
+            int size = lst.size();
+            for(int i = 0; i < size; i++)
+            {
+                cs.setMaLop(lst.get(i).getMaLop());
+                cs.setMaMon(lst.get(i).getMaMon());
+                cs.setStudentID(lst.get(i).getStudentID());
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return cs;
+    }
 
     @Override
     public boolean Insert(ClassSubjectsObjects OT) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-//        if(GetElementByID(OT.getMaLop()) != null)
-//        {
-//            return false;
-//        }
+        if(GetElementByMaLopAndMaMonAndStudentID(OT.getMaLop(), OT.getMaMon(), OT.getStudentID()) != null)
+        {
+            return false;
+        }
         Transaction transaction = null;
         try
         {
             transaction = session.beginTransaction();
             session.save(OT);
+            transaction.commit();
+        }
+        catch(Exception ex)
+        {
+            transaction.rollback();
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean Update(ClassSubjectsObjects OT) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(GetElementByMaLopAndMaMonAndStudentID(OT.getMaLop(), OT.getMaMon(), OT.getStudentID()) == null)
+        {
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(OT);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean Delete(ClassSubjectsObjects OT) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(GetElementByMaLopAndMaMonAndStudentID(OT.getMaLop(), OT.getMaMon(), OT.getStudentID()) == null)
+        {
+            return false;
+        }
+        Transaction transaction = null;
+        try
+        {
+            transaction = session.beginTransaction();
+            session.delete(OT);
             transaction.commit();
         }
         catch(Exception ex)

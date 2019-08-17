@@ -27,5 +27,15 @@ public class ClassSubjectsBLL extends BaseBLL<ClassSubjectsObjects>{
     public boolean Insert(ClassSubjectsObjects OT) {
         return new ClassSubjectsDAL().Insert(OT);
     }
+
+    @Override
+    public boolean Update(ClassSubjectsObjects OT) {
+        return new ClassSubjectsDAL().Update(OT);
+    }
+
+    @Override
+    public boolean Delete(ClassSubjectsObjects OT) {
+        return new ClassSubjectsDAL().Delete(OT);
+    }
     
 }
