@@ -54,6 +54,7 @@ public class MainSoftware extends javax.swing.JFrame {
         btnThoiKhoaBieu = new javax.swing.JButton();
         btnDiem = new javax.swing.JButton();
         btnLopMonHoc = new javax.swing.JButton();
+        btnPhucKhao = new javax.swing.JButton();
         pnHoTro = new javax.swing.JPanel();
         btnThoat = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -186,7 +187,7 @@ public class MainSoftware extends javax.swing.JFrame {
 
         btnLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnLopMonHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Book1.png"))); // NOI18N
-        btnLopMonHoc.setText("Danh Sách Lớp Theo Môn Học");
+        btnLopMonHoc.setText("Lớp Môn Học");
         btnLopMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLopMonHoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLopMonHoc.setOpaque(false);
@@ -196,6 +197,14 @@ public class MainSoftware extends javax.swing.JFrame {
                 btnLopMonHocActionPerformed(evt);
             }
         });
+
+        btnPhucKhao.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnPhucKhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/phuckhao.jpg"))); // NOI18N
+        btnPhucKhao.setText("Phúc Khảo");
+        btnPhucKhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnPhucKhao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPhucKhao.setOpaque(false);
+        btnPhucKhao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout pnChucNangLayout = new javax.swing.GroupLayout(pnChucNang);
         pnChucNang.setLayout(pnChucNangLayout);
@@ -209,8 +218,10 @@ public class MainSoftware extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addComponent(btnLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPhucKhao, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         pnChucNangLayout.setVerticalGroup(
             pnChucNangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +230,8 @@ public class MainSoftware extends javax.swing.JFrame {
                     .addComponent(btnDiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDanhSachLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThoiKhoaBieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPhucKhao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -340,7 +352,11 @@ public class MainSoftware extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-
+        pnChucNang.setVisible(false);
+        pnHoTro.setVisible(false);
+        pnThongTinChung.setVisible(false);
+        Login lg = new Login();
+        lg.setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnXemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDiemActionPerformed
@@ -361,6 +377,7 @@ public class MainSoftware extends javax.swing.JFrame {
     private javax.swing.JButton btnDanhSachLop;
     private javax.swing.JButton btnDiem;
     private javax.swing.JButton btnLopMonHoc;
+    private javax.swing.JButton btnPhucKhao;
     private javax.swing.JButton btnThoat;
     private javax.swing.JButton btnThoiKhoaBieu;
     private javax.swing.JButton btnXemDiem;

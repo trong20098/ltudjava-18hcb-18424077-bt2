@@ -33,9 +33,7 @@ public class ClassSubjectsBLL extends BaseBLL<ClassSubjectsObjects>{
         return new ClassSubjectsDAL().Update(OT);
     }
 
-    @Override
-    public boolean Delete(ClassSubjectsObjects OT) {
-        return new ClassSubjectsDAL().Delete(OT);
+    public boolean Delete(String malop, String mamon, String studentid) {
+        return new ClassSubjectsDAL().Delete(malop, mamon, studentid);
     }
-    
 }

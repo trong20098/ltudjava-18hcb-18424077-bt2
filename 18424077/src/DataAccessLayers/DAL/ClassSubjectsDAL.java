@@ -22,7 +22,7 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
-            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon";
+            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and Status < 2";
             Query query = session.createQuery(hql);
             query.setParameter("malop", malop);
             query.setParameter("mamon", mamon);
@@ -45,7 +45,7 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
-            String hql = "from ClassSubjectsObjects";
+            String hql = "from ClassSubjectsObjects where Status < 2";
             Query query = session.createQuery(hql);
             lst = query.list();
         }
@@ -84,7 +84,7 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         ClassSubjectsObjects cs = null;
         try {
-            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and StudentID = :studentID";
+            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and StudentID = :studentID and Status < 2";
             Query query = session.createQuery(hql);
             query.setParameter("MaLop", malop);
             query.setParameter("MaMon", mamon);
@@ -156,10 +156,10 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         return true;
     }
 
-    @Override
-    public boolean Delete(ClassSubjectsObjects OT) {
+    public boolean Delete(String malop, String mamon, String studentid) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(GetElementByMaLopAndMaMonAndStudentID(OT.getMaLop(), OT.getMaMon(), OT.getStudentID()) == null)
+        ClassSubjectsObjects cs = GetElementByMaLopAndMaMonAndStudentID(malop, mamon, studentid);
+        if(cs == null)
         {
             return false;
         }
@@ -167,7 +167,7 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         try
         {
             transaction = session.beginTransaction();
-            session.delete(OT);
+            session.delete(cs);
             transaction.commit();
         }
         catch(Exception ex)

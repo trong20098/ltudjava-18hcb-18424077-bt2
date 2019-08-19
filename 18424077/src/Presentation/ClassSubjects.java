@@ -5,12 +5,10 @@
  */
 package Presentation;
 
-import java.io.File;
 import javax.swing.table.DefaultTableModel;
 import java.util.*;
 import ValueObjects.*;
 import BussinessLogicLayers.BLL.*;
-import java.util.function.Consumer;
 import javax.swing.*;
 
 /**
@@ -27,7 +25,8 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     public ClassSubjects() {
         initComponents();
         LopMonHoc();
-        String lopmonhoc = cbbLopMonHoc.getItemAt(1);
+        Lop();
+        MonHoc();
     }
 
     public final void LopMonHoc() {
@@ -38,16 +37,18 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     }
 
     public final void Lop() {
-
-        try {
-            File f = new File("src/DataAccessLayers/Database/SinhVien");
-            String[] files = f.list();
-            for (String file : files) {
-                cbbLop.addItem(filename(file, '/', '.'));
-            }
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
+        List<ClassObjects> lst = new ClassBLL().getElement();
+        lst.forEach((lop) -> {
+            cbbLop.addItem(lop.getMaLop());
+        });
+    }
+    
+    public final void MonHoc()
+    {
+        List<SubjectsObjects> lst = new SubjectsObjectsBLL().getElement();
+        lst.forEach((su) -> {
+            cbbMonHoc.addItem(su.getTenMon());
+        });
     }
 
     public void LoadSinhVien(String malop, String mamon) {
@@ -98,17 +99,18 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
         txtMSSV = new javax.swing.JTextField();
         lblHoTen = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
-        lblGioiTinh = new javax.swing.JLabel();
-        radNam = new javax.swing.JRadioButton();
-        radNu = new javax.swing.JRadioButton();
-        lblCMND = new javax.swing.JLabel();
-        txtCMND = new javax.swing.JTextField();
         lblLop = new javax.swing.JLabel();
         cbbLop = new javax.swing.JComboBox<>();
         lblMonHoc = new javax.swing.JLabel();
         cbbMonHoc = new javax.swing.JComboBox<>();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
+        lblHocKy = new javax.swing.JLabel();
+        radChinh = new javax.swing.JRadioButton();
+        radTrano = new javax.swing.JRadioButton();
+        lblLopMonHoc = new javax.swing.JLabel();
+        cbbMaLopMonHoc = new javax.swing.JComboBox<>();
+        radhoclai = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -167,7 +169,7 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         pnThongTin.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông Tin Sinh Viên"));
@@ -180,37 +182,30 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
         lblMSSV.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblMSSV.setText("Mã Số Sinh Viên:");
 
+        txtMSSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMSSVActionPerformed(evt);
+            }
+        });
+
         lblHoTen.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblHoTen.setText("Họ Tên Sinh Viên:");
-
-        lblGioiTinh.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lblGioiTinh.setText("Giới Tính:");
-
-        buttonGroup1.add(radNam);
-        radNam.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        radNam.setText("Nam");
-
-        buttonGroup1.add(radNu);
-        radNu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        radNu.setText("Nữ");
-
-        lblCMND.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lblCMND.setText("Số CMND:");
 
         lblLop.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblLop.setText(" Lớp: ");
 
+        cbbLop.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         cbbLop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cbbLop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbLopActionPerformed(evt);
-            }
-        });
 
         lblMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblMonHoc.setText("Môn Học:");
 
         cbbMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cbbMonHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbMonHocActionPerformed(evt);
+            }
+        });
 
         btnLuu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnLuu.setText("Lưu");
@@ -232,6 +227,32 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
             }
         });
 
+        lblHocKy.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblHocKy.setText("Học Kỳ:");
+
+        buttonGroup1.add(radChinh);
+        radChinh.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        radChinh.setText(" Chính");
+        radChinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        buttonGroup1.add(radTrano);
+        radTrano.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        radTrano.setText("Trả nợ");
+        radTrano.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        lblLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblLopMonHoc.setText("Mã Lớp Môn Học: ");
+
+        cbbMaLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        cbbMaLopMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        buttonGroup1.add(radhoclai);
+        radhoclai.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        radhoclai.setText("Học lại");
+        radhoclai.setHideActionText(true);
+        radhoclai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        radhoclai.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout pnThongTinLayout = new javax.swing.GroupLayout(pnThongTin);
         pnThongTin.setLayout(pnThongTinLayout);
         pnThongTinLayout.setHorizontalGroup(
@@ -243,33 +264,40 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
                 .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnThongTinLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblCMND, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblGioiTinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                .addComponent(lblMSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(lblMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnThongTinLayout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(radNam, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblHocKy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(radNu, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(radChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(radTrano, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(radhoclai, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnThongTinLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbbMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtMSSV)
-                                        .addComponent(txtHoTen)
-                                        .addComponent(txtCMND)
-                                        .addComponent(cbbLop, 0, 278, Short.MAX_VALUE))))))
+                                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblLop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblHoTen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(lblMSSV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblMonHoc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnThongTinLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(pnThongTinLayout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
+                                                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtMSSV, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                                                    .addComponent(txtHoTen)))
+                                            .addComponent(cbbMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnThongTinLayout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(cbbMaLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(pnThongTinLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(89, 89, 89)
                         .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
+                        .addGap(68, 68, 68)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -286,28 +314,28 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
                     .addComponent(lblHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radNu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(radNam, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCMND, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCMND, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbbLop, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
+                .addGap(11, 11, 11)
+                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbMaLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLopMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHocKy, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radChinh, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radTrano, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radhoclai, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(pnThongTinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,75 +370,83 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbbLopMonHocActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-//        DefaultTableModel model = (DefaultTableModel) tblDanhSachLopMonHoc.getModel();
-//        int selectedRowIndex = tblDanhSachLopMonHoc.getSelectedRow();
-//        MSSV = (String) model.getValueAt(selectedRowIndex, 1);
-//        List<StudentObjects> lst = new ClassSubjectsBLL().getElement(filename);
-//        StudentObjects st = null;
-//        int size = lst.size();
-//        for (int i = 0; i < size; i++) {
-//            if (lst.get(i).getMSSV().equals(MSSV)) {
-//                st = lst.get(i);
-//            }
-//        }
-//        if (st != null) {
-//            lst.remove(st);
-//            new ClassSubjectsBLL().Insert(filename, lst);
-//            LoadSinhVien(filename);
-//        }
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachLopMonHoc.getModel();
+        int selectedRowIndex = tblDanhSachLopMonHoc.getSelectedRow();
+        MSSV = (String) model.getValueAt(selectedRowIndex, 1);
+        String malopmonhoc = (String)cbbLopMonHoc.getSelectedItem();
+        String[] lopmonhoc = malopmonhoc.split("-");
+        boolean KQ = new ClassSubjectsBLL().Delete(lopmonhoc[0], lopmonhoc[1], MSSV);
+        if(KQ == true)
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã xóa thành công");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã xóa không thành công");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
-//        String lop = cbbLop.getSelectedItem().toString();
-//        String monhoc = cbbMonHoc.getSelectedItem().toString();
-//        String mamonhoc = null;
-//        String f = lop + ".csv";
-//        List<ScheduledObjects> lstMonHoc = new ScheduledBLL().getElement(f);
-//        for (ScheduledObjects sc : lstMonHoc) {
-//            if (monhoc.equals(sc.getTenMon())) {
-//                mamonhoc = sc.getMaMon();
-//                break;
-//            }
-//        }
-//        String file = lop + "-" + mamonhoc + ".csv";
-//        List<StudentObjects> lst = new ClassSubjectsBLL().getElement(file);
-//        for (StudentObjects st : lst) {
-//            if (txtMSSV.getText().equals(st.getMSSV())) {
-//                JOptionPane.showMessageDialog(this, "Mã số sinh viên " + txtMSSV.getText() + " đã có");
-//            }
-//        }
-//        StudentObjects st = new StudentObjects();
-//        st.setMSSV(txtMSSV.getText());
-//        st.setHoten(txtHoTen.getText());
-//        if (radNam.isSelected()) {
-//            st.setGioitinh("Nam");
-//        } else {
-//            st.setGioitinh("Nữ");
-//        }
-//        st.setCMND(txtCMND.getText());
-//        lst.add(st);
-//        Collections.sort(lst, new sortbyroll());
-//        new ClassSubjectsBLL().Insert(file, lst);
-//        LoadSinhVien(file);
+        String malopmonhoc = (String)cbbMaLopMonHoc.getSelectedItem();
+        String[] lopmonhoc = malopmonhoc.split("-");
+        ClassSubjectsObjects cs = new ClassSubjectsObjects();
+        cs.setMaLop(lopmonhoc[0]);
+        cs.setMaMon(lopmonhoc[1]);
+        cs.setStudentID(txtMSSV.getText());
+        if(radChinh.isSelected())
+        {
+            cs.setStatus(0);
+        }
+        else
+        {
+            if(radTrano.isSelected())
+            {
+                cs.setStatus(1);
+            }
+            else
+            {
+                if(radhoclai.isSelected())
+                {
+                    cs.setStatus(1);
+                }
+            }
+        }
+        boolean KQ = new ClassSubjectsBLL().Insert(cs);
+        if(KQ == true)
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã đăng ký thành công");
+            LoadSinhVien(lopmonhoc[0], lopmonhoc[1]);
+            cbbLopMonHoc.setSelectedItem(lopmonhoc[0] + "-" + lopmonhoc[1]);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Bạn đã đăng ký không thành công");
+        }
+        
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
         txtMSSV.setText("");
         txtHoTen.setText("");
-        txtCMND.setText("");
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void cbbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbLopActionPerformed
-//        cbbMonHoc.removeAllItems();
-//        String f = cbbLop.getSelectedItem() + ".csv";
-//        List<ScheduledObjects> lstMonHoc = new ScheduledBLL().getElement(f);
-//        lstMonHoc.forEach((ScheduledObjects sc) -> {
-//            cbbMonHoc.addItem(sc.getTenMon());
-//        });
-    }//GEN-LAST:event_cbbLopActionPerformed
+    private void cbbMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMonHocActionPerformed
+        cbbMaLopMonHoc.removeAllItems();
+        String monhoc = (String) cbbMonHoc.getSelectedItem();
+        SubjectsObjects su = new SubjectsObjectsBLL().GetElementByTenMon(monhoc);
+        List<ScheduledObjects> lst = new ScheduledBLL().getElementByMaMon(su.getMaMon());
+        int size = lst.size();
+        for (int i = 0; i < size; i++) {
+            cbbMaLopMonHoc.addItem(lst.get(i).getMaLop() + '-' + lst.get(i).getMaMon());
+        }
+    }//GEN-LAST:event_cbbMonHocActionPerformed
+
+    private void txtMSSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMSSVActionPerformed
+        StudentObjects st = new StudentBLL().GetElementByID(txtMSSV.getText());
+        txtHoTen.setText(st.getHoten());
+        cbbLop.setSelectedItem(st.getClassName());
+    }//GEN-LAST:event_txtMSSVActionPerformed
 
     class sortbyroll implements Comparator<StudentObjects> {
 
@@ -427,21 +463,22 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbbLop;
     private javax.swing.JComboBox<String> cbbLopMonHoc;
+    private javax.swing.JComboBox<String> cbbMaLopMonHoc;
     private javax.swing.JComboBox<String> cbbMonHoc;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCMND;
-    private javax.swing.JLabel lblGioiTinh;
     private javax.swing.JLabel lblHoTen;
+    private javax.swing.JLabel lblHocKy;
     private javax.swing.JLabel lblLop;
+    private javax.swing.JLabel lblLopMonHoc;
     private javax.swing.JLabel lblMSSV;
     private javax.swing.JLabel lblMonHoc;
     private javax.swing.JLabel lblthongtin;
     private javax.swing.JPanel pnDanhSach;
     private javax.swing.JPanel pnThongTin;
-    private javax.swing.JRadioButton radNam;
-    private javax.swing.JRadioButton radNu;
+    private javax.swing.JRadioButton radChinh;
+    private javax.swing.JRadioButton radTrano;
+    private javax.swing.JRadioButton radhoclai;
     private javax.swing.JTable tblDanhSachLopMonHoc;
-    private javax.swing.JTextField txtCMND;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtMSSV;
     // End of variables declaration//GEN-END:variables

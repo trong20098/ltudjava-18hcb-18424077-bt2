@@ -47,7 +47,7 @@ Contributor(s):
     <class name="ValueObjects.UserObjects" table="tblaccount">
         <id name="accountID" type="integer">
             <column length="11" name="AccountID" not-null = "true"/>
-            <generator class="increment"/>
+            <generator class="identity"/>
         </id>
         <property name="Username" type="string">
             <column length="50" name="username"/>

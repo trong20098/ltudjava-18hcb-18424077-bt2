@@ -55,6 +55,33 @@ public class SubjectsObjectsDAL extends BaseDAL<SubjectsObjects>{
         }
         return su;
     }
+    
+    public SubjectsObjects GetElementByTenMon(String tenmon)
+    {
+        SubjectsObjects su = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql = "from SubjectsObjects where TenMon = :tenmon";
+            Query query = session.createQuery(hql);
+            query.setParameter("tenmon", tenmon);
+            List<SubjectsObjects> lst = query.list();
+            int size = lst.size();
+            for(int i = 0; i < size; i++)
+            {
+                su = lst.get(i);
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return su;
+    }
 
     @Override
     public boolean Insert(SubjectsObjects OT) {

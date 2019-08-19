@@ -27,5 +27,5 @@ public class BaseDAL<T> {
     
     public boolean Update(T OT){return true;}
     
-    public boolean Delete(T OT){return true;}
+    public boolean Delete(String ID){return true;}
 }

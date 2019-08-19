@@ -59,6 +59,28 @@ public class ScheduledDAL extends BaseDAL<ScheduledObjects>{
         }
         return lst;
     }
+    
+    public List<ScheduledObjects> getElementByMaMon(String mamon)
+    {
+        List<ScheduledObjects> lst = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql = "from ScheduledObjects where MaMon = :mamon";
+            Query query = session.createQuery(hql);
+            query.setParameter("mamon", mamon);
+            lst = query.list();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return lst;
+    }
 
     @Override
     public ScheduledObjects GetElementByID(String ID) {

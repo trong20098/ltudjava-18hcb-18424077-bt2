@@ -24,6 +24,11 @@ public class ScheduledBLL extends BaseBLL<ScheduledObjects>{
     public List<ScheduledObjects> getElementByMaLop(String malop) {
         return new ScheduledDAL().getElementByMaLop(malop);
     }
+    
+    public List<ScheduledObjects> getElementByMaMon(String mamon)
+    {
+        return new ScheduledDAL().getElementByMaMon(mamon);
+    }
 
     @Override
     public boolean Insert(ScheduledObjects OT) {

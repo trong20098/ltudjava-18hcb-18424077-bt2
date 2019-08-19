@@ -44,11 +44,32 @@ public class UserDAL extends BaseDAL<UserObjects>{
         }
         return lst;
     }
+
+    @Override
+    public List<UserObjects> getElement() {
+        List<UserObjects> lst = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql = "from UserObjects";
+            Query query = session.createQuery(hql);
+            lst = query.list();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return lst;
+    }
     
     public UserObjects GetElementByusername(String username)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        UserObjects us = new UserObjects();
+        UserObjects us = null;
         try
         {
             session.beginTransaction();

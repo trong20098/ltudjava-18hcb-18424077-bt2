@@ -23,6 +23,11 @@ public class SubjectsObjectsBLL extends BaseBLL<SubjectsObjects>{
     public SubjectsObjects GetElementByID(String ID) {
         return new SubjectsObjectsDAL().GetElementByID(ID);
     }
+    
+    public SubjectsObjects GetElementByTenMon(String tenmon)
+    {
+        return new SubjectsObjectsDAL().GetElementByTenMon(tenmon);
+    }
 
     @Override
     public boolean Insert(SubjectsObjects OT) {

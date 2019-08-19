@@ -24,6 +24,11 @@ public class UserBLL extends BaseBLL<UserObjects>{
     }
 
     @Override
+    public List<UserObjects> getElement() {
+        return new UserDAL().getElement();
+    }
+
+    @Override
     public boolean Update(UserObjects OT) {
         return new UserDAL().Update(OT);
     }

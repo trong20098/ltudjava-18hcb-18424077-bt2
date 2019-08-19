@@ -379,6 +379,7 @@ public final class Student extends javax.swing.JInternalFrame {
                         st.setGioitinh(lstimportdanhsach.get(i).getGioitinh());
                         st.setCMND(lstimportdanhsach.get(i).getCMND());
                         st.setClassName(fi);
+                        List<UserObjects> lst = new UserBLL().getElement();
                         UserObjects us = new UserObjects();
                         us.setUsername(lstimportdanhsach.get(i).getMSSV());
                         us.setPassword(lstimportdanhsach.get(i).getMSSV());
