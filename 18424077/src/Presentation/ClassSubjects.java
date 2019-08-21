@@ -68,7 +68,14 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
             StudentObjects st = new StudentBLL().GetElementByID(cs.getStudentID());
             row.add(st.getMSSV());
             row.add(st.getHoten());
-            row.add(st.getGioitinh());
+            if(st.getGioitinh() == 0)
+            {
+                row.add("Nam");
+            }
+            else
+            {
+                row.add("Nữ");
+            }
             row.add(st.getCMND());
             model.addRow(row);
             i++;
@@ -379,6 +386,8 @@ public class ClassSubjects extends javax.swing.JInternalFrame {
         if(KQ == true)
         {
             JOptionPane.showMessageDialog(this, "Bạn đã xóa thành công");
+            LoadSinhVien(lopmonhoc[0], lopmonhoc[1]);
+            cbbLopMonHoc.setSelectedItem(lopmonhoc[0] + "-" + lopmonhoc[1]);
         }
         else
         {

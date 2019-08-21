@@ -38,6 +38,28 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         }
         return lst;
     }
+    
+    public List<ClassSubjectsObjects> GetElementByMonHoc(String mamon)
+    {
+        List<ClassSubjectsObjects> lst = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql = "from ClassSubjectsObjects where MaMon = :mamon and Status < 2";
+            Query query = session.createQuery(hql);
+            query.setParameter("mamon", mamon);
+            lst = query.list();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return lst;
+    }
 
     @Override
     public List<ClassSubjectsObjects> getElement() {
@@ -86,16 +108,14 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         try {
             String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and StudentID = :studentID and Status < 2";
             Query query = session.createQuery(hql);
-            query.setParameter("MaLop", malop);
-            query.setParameter("MaMon", mamon);
-            query.setParameter("StudentID", studentID);
+            query.setParameter("malop", malop);
+            query.setParameter("mamon", mamon);
+            query.setParameter("studentID", studentID);
             List<ClassSubjectsObjects> lst = query.list();
             int size = lst.size();
             for(int i = 0; i < size; i++)
             {
-                cs.setMaLop(lst.get(i).getMaLop());
-                cs.setMaMon(lst.get(i).getMaMon());
-                cs.setStudentID(lst.get(i).getStudentID());
+                cs = lst.get(i);
             }
         } catch (Exception e) {
             e.getMessage();

@@ -17,6 +17,11 @@ public class ClassSubjectsBLL extends BaseBLL<ClassSubjectsObjects>{
     {
         return new ClassSubjectsDAL().GetElementByLopAndMonHoc(malop, mamon);
     }
+    
+    public List<ClassSubjectsObjects> GetElementByMonHoc(String mamon)
+    {
+        return new ClassSubjectsDAL().GetElementByMonHoc(mamon);
+    }
 
     @Override
     public List<ClassSubjectsObjects> getElement() {

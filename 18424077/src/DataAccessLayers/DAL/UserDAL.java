@@ -80,10 +80,7 @@ public class UserDAL extends BaseDAL<UserObjects>{
             int size = lst.size();
             for(int i = 0; i < size; i++)
             {
-                us.setAccountID(lst.get(i).getAccountID());
-                us.setUsername(lst.get(i).getUsername());
-                us.setPassword(lst.get(i).getPassword());
-                us.setStudentID(lst.get(i).getStudentID());
+                us = lst.get(i);
             }
             
         }

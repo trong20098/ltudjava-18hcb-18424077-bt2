@@ -360,7 +360,10 @@ public class MainSoftware extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnXemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDiemActionPerformed
-
+        SeePointed sp = new SeePointed(user);
+        sp.setVisible(true);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(sp);
     }//GEN-LAST:event_btnXemDiemActionPerformed
 
     private void btnLopMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLopMonHocActionPerformed
