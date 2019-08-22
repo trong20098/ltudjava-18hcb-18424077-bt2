@@ -256,8 +256,8 @@ public final class Scheduled extends javax.swing.JInternalFrame {
 
     private void cbbMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMonHocActionPerformed
         // TODO add your handling code here:
-//        filename = cbbMonHoc.getSelectedItem() + ".csv";
-//        LoadScheduled(filename);
+        filename = (String)cbbMonHoc.getSelectedItem();
+        LoadScheduled(filename);
     }//GEN-LAST:event_cbbMonHocActionPerformed
 
 

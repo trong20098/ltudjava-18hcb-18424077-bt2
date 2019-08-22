@@ -22,7 +22,7 @@ public class ClassSubjectsDAL extends BaseDAL<ClassSubjectsObjects>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
-            String hql = "from ClassSubjectsObjects where MaLop = :malop and MaMon = :mamon and Status < 2";
+            String hql = "select distinct cs from ClassSubjectsObjects cs where cs.MaLop = :malop and cs.MaMon = :mamon and cs.Status < 2";
             Query query = session.createQuery(hql);
             query.setParameter("malop", malop);
             query.setParameter("mamon", mamon);
