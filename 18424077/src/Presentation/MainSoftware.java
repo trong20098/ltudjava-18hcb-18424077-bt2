@@ -205,6 +205,11 @@ public class MainSoftware extends javax.swing.JFrame {
         btnPhucKhao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPhucKhao.setOpaque(false);
         btnPhucKhao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPhucKhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPhucKhaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnChucNangLayout = new javax.swing.GroupLayout(pnChucNang);
         pnChucNang.setLayout(pnChucNangLayout);
@@ -372,6 +377,13 @@ public class MainSoftware extends javax.swing.JFrame {
         jDesktopPane1.removeAll();
         jDesktopPane1.add(cs);
     }//GEN-LAST:event_btnLopMonHocActionPerformed
+
+    private void btnPhucKhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhucKhaoActionPerformed
+        ReferencesPoint rp = new ReferencesPoint();
+        rp.setVisible(true);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(rp);
+    }//GEN-LAST:event_btnPhucKhaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
