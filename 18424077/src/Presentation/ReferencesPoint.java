@@ -45,6 +45,8 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         lblBatDau = new javax.swing.JLabel();
         lblKetThuc = new javax.swing.JLabel();
         btnTaoLich = new javax.swing.JButton();
+        dtcBegin = new com.toedter.calendar.JDateChooser();
+        dtcEnd = new com.toedter.calendar.JDateChooser();
 
         lblDanhSach.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lblDanhSach.setForeground(new java.awt.Color(255, 0, 51));
@@ -52,6 +54,7 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         lblDanhSach.setText("DANH SÁCH SINH VIÊN PHÚC KHẢO ĐIỂM");
         lblDanhSach.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        tblPhucKhaoDiem.setAutoCreateRowSorter(true);
         tblPhucKhaoDiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -97,6 +100,15 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         btnTaoLich.setText("Tạo Lịch Phúc Khảo");
         btnTaoLich.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnTaoLich.setBorderPainted(false);
+        btnTaoLich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoLichActionPerformed(evt);
+            }
+        });
+
+        dtcBegin.setDateFormatString("dd/MM/yyyy");
+
+        dtcEnd.setDateFormatString("dd/MM/yyyy");
 
         javax.swing.GroupLayout pnDatLichLayout = new javax.swing.GroupLayout(pnDatLich);
         pnDatLich.setLayout(pnDatLichLayout);
@@ -108,9 +120,13 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
                         .addGap(26, 26, 26)
                         .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblBatDau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                            .addComponent(lblKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dtcBegin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dtcEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))
                     .addGroup(pnDatLichLayout.createSequentialGroup()
-                        .addGap(208, 208, 208)
+                        .addGap(118, 118, 118)
                         .addComponent(btnTaoLich, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -118,12 +134,16 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
             pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDatLichLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(lblBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dtcBegin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblBatDau, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(lblKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dtcEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(btnTaoLich, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,15 +182,34 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        
+        DefaultTableModel model = (DefaultTableModel) tblPhucKhaoDiem.getModel();
+        int selectedRowIndex = tblPhucKhaoDiem.getSelectedRow();
+        String studentid = model.getValueAt(selectedRowIndex, 1).toString();
+        String fullname = model.getValueAt(selectedRowIndex, 2).toString();
+        String monthi = model.getValueAt(selectedRowIndex, 3).toString();
+        String cotdiemphuckhao = model.getValueAt(selectedRowIndex, 4).toString();
+        String diemmongmuon = model.getValueAt(selectedRowIndex, 5).toString();
+        String lido = model.getValueAt(selectedRowIndex, 6).toString();
+        String tinhtrang = model.getValueAt(selectedRowIndex, 7).toString();
+        SubjectsObjects su = new SubjectsObjectsBLL().GetElementByTenMon(monthi);
+        ReferencesPointObjects rp = new ReferencesPointBLL().GetElementByStudentIDandMaMon(studentid, su.getMaMon());
+        if(rp != null)
+        {
+            
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
-    public void LoadDanhSachPhucKhao()
+    private void btnTaoLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoLichActionPerformed
+        
+    }//GEN-LAST:event_btnTaoLichActionPerformed
+
+    private void LoadDanhSachPhucKhao()
     {
         List<ReferencesPointObjects> lst = new ReferencesPointBLL().getElement();
+        tblPhucKhaoDiem.setRowHeight(30);
         DefaultTableModel model = (DefaultTableModel) tblPhucKhaoDiem.getModel();
         model.setRowCount(0);
-        String[] columnsName = {"STT", "MSSV", "Họ tên", "Môn thi", "Cột điểm cần phúc khảo", "Điểm mong muốn", "Lí do", "Tình trạng phúc khảo"};
+        String[] columnsName = {"STT", "Mã số sinh viên", "Họ tên", "Môn thi", "Cột điểm cần phúc khảo", "Điểm mong muốn", "Lí do", "Tình trạng phúc khảo"};
         model.setColumnIdentifiers(columnsName);
         int i = 1;
         for (ReferencesPointObjects rp : lst) {
@@ -187,9 +226,11 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
             row.add(rp.getLiDo());
             TableColumn column = tblPhucKhaoDiem.getColumnModel().getColumn(7);
             JComboBox<String> cbb = new JComboBox<>();
-            cbb.addItem("Chưa xem");
-            cbb.addItem("Không cập nhật điểm");
-            cbb.addItem("Đã cập nhật điểm");
+            List<StatusReferencesPoint> list = new StatusReferencesPointBLL().getElement();
+            for(StatusReferencesPoint str : list)
+            {
+                cbb.addItem(str.getTentinhtrangphuckhao());
+            }
             column.setCellEditor(new DefaultCellEditor(cbb));
             row.add("Chưa xem");
             model.addRow(row);
@@ -202,6 +243,8 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnTaoLich;
+    private com.toedter.calendar.JDateChooser dtcBegin;
+    private com.toedter.calendar.JDateChooser dtcEnd;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBatDau;
     private javax.swing.JLabel lblDanhSach;
