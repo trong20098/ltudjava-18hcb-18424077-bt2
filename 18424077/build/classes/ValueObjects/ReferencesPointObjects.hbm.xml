@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,19 +38,25 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_studentmanagement?characterEncoding=UTF-8</property>
-    <property name="hibernate.connection.username">root</property>
-    <mapping resource="ValueObjects/UserObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/ClassObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/StudentObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/SubjectsObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/ScheduledObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/ClassSubjectsObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/StudyResultObjects.hbm.xml"/>
-    <mapping resource="ValueObjects/ReferencesPointObjects.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ValueObjects.ReferencesPointObjects" table="tblphuckhaodiem">
+        <composite-id>
+            <key-property name="StudentID" column="StudentID" type="string" length="10"></key-property>
+            <key-property name="MaMon" column="MaMon" type="string" length="20"></key-property>
+        </composite-id>
+        <property name="CotDiemPhucKhao" type="string">
+            <column length="255" name="CotDiemCanPhucKhao"/>
+        </property>
+        <property name="DiemMongMuon" type="float">
+            <column length="11" name="DiemMongMuon"/>
+        </property>
+        <property name="LiDo" type="string">
+            <column length="255" name="LiDo"/>
+        </property>
+    </class>
+</hibernate-mapping>

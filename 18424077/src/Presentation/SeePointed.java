@@ -239,7 +239,7 @@ public class SeePointed extends javax.swing.JInternalFrame {
         }
         row.add(KQ);
         model.addRow(row);
-        if(diem != null)
+        if(diem == null)
         {
             JOptionPane.showMessageDialog(this, "Không tim thấy điểm");
         }
