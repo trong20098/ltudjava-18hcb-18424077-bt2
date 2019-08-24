@@ -9,6 +9,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import ValueObjects.*;
 import BussinessLogicLayers.BLL.*;
+import java.time.*;
+import java.util.Date;
+import java.util.List;
 import javax.swing.*;
 
 /**
@@ -45,6 +48,8 @@ public class RegisterTheScore extends javax.swing.JFrame {
         txtDiemMongMuon = new javax.swing.JTextField();
         txtLydo = new javax.swing.JTextField();
         btnDangKy = new javax.swing.JButton();
+        cbbLopMonHoc = new javax.swing.JComboBox<>();
+        lblLopMonHoc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +77,12 @@ public class RegisterTheScore extends javax.swing.JFrame {
         lblLido.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblLido.setText("Lý Do Rõ Ràng Cụ Thể:");
 
+        txtMonThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMonThiActionPerformed(evt);
+            }
+        });
+
         btnDangKy.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnDangKy.setText("Đăng Ký Phúc Khảo Điểm");
         btnDangKy.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -82,6 +93,11 @@ public class RegisterTheScore extends javax.swing.JFrame {
             }
         });
 
+        cbbLopMonHoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblLopMonHoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblLopMonHoc.setText("Mã Lớp Môn Học:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,26 +106,28 @@ public class RegisterTheScore extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblMSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblMonThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCotDiem, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                             .addComponent(lblDiemMongMuon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblLido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblLido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCotDiemCanPhucKhao, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMSSV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(txtHoTen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(txtMonThi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(txtDiemMongMuon)
-                            .addComponent(txtLydo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbbLopMonHoc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCotDiemCanPhucKhao)
+                            .addComponent(txtMSSV, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addComponent(txtMonThi, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addComponent(txtDiemMongMuon, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtLydo, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))))
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,20 +146,24 @@ public class RegisterTheScore extends javax.swing.JFrame {
                     .addComponent(lblMonThi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMonThi, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCotDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCotDiemCanPhucKhao, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbbLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(lblLopMonHoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDiemMongMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDiemMongMuon, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                    .addComponent(txtCotDiemCanPhucKhao, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(lblCotDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLido, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLydo, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                    .addComponent(txtDiemMongMuon, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(lblDiemMongMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLydo, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(lblLido, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -152,13 +174,21 @@ public class RegisterTheScore extends javax.swing.JFrame {
         rp.setStudentID(txtMSSV.getText());
         SubjectsObjects su = new SubjectsObjectsBLL().GetElementByTenMon(txtMonThi.getText());
         rp.setMaMon(su.getMaMon());
+        String lopmonhoc = (String)cbbLopMonHoc.getSelectedItem();
+        String[] malop = lopmonhoc.split("-");
+        rp.setMalop(malop[0]);
         rp.setCotDiemPhucKhao(txtCotDiemCanPhucKhao.getText());
         rp.setDiemMongMuon(Float.parseFloat(txtDiemMongMuon.getText()));
         rp.setLiDo(txtLydo.getText());
+        long milis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(milis);
+        rp.setNgayDangKy(date);
+        rp.setIDtinhtrang(1);
         boolean KQ = new ReferencesPointBLL().Insert(rp);
         if(KQ == true)
         {
             JOptionPane.showMessageDialog(this, "Bạn đã đăng ký phúc khảo thành công");
+            this.setVisible(false);
         }
         else
         {
@@ -166,12 +196,23 @@ public class RegisterTheScore extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDangKyActionPerformed
 
+    private void txtMonThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMonThiActionPerformed
+        cbbLopMonHoc.removeAllItems();
+        SubjectsObjects su = new SubjectsObjectsBLL().GetElementByTenMon(txtMonThi.getText());
+        List<ScheduledObjects> lst = new ScheduledBLL().getElementByMaMon(su.getMaMon());
+        lst.forEach((sc) -> {
+            cbbLopMonHoc.addItem(sc.getMaLop() + '-' + sc.getMaMon());
+        });
+    }//GEN-LAST:event_txtMonThiActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangKy;
+    private javax.swing.JComboBox<String> cbbLopMonHoc;
     private javax.swing.JLabel lblCotDiem;
     private javax.swing.JLabel lblDiemMongMuon;
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JLabel lblLido;
+    private javax.swing.JLabel lblLopMonHoc;
     private javax.swing.JLabel lblMSSV;
     private javax.swing.JLabel lblMonThi;
     private javax.swing.JLabel lblPhucKhaoDiem;

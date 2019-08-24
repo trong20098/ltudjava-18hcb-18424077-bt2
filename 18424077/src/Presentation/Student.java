@@ -21,7 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public final class Student extends javax.swing.JInternalFrame {
 
     private final JFileChooser filestudent;
-    private String folder, filename;
+    private String filename;
 
     /**
      * Creates new form Student

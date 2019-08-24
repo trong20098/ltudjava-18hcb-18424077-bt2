@@ -153,9 +153,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDangNhapKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;

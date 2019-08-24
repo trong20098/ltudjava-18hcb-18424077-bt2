@@ -7,10 +7,6 @@ package Presentation;
 
 import BussinessLogicLayers.BLL.*;
 import ValueObjects.*;
-import java.awt.Dimension;
-import java.io.File;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Nguy Minh Trong
  */
-public class SeePointed extends javax.swing.JInternalFrame {
+public final class SeePointed extends javax.swing.JInternalFrame {
 
     private static String filename, username;
 
@@ -47,17 +43,17 @@ public class SeePointed extends javax.swing.JInternalFrame {
     public void Loadlistlopcuasinhvien() {
         String mh = (String) cbbMonHoc.getSelectedItem();
         SubjectsObjects su = new SubjectsObjectsBLL().GetElementByTenMon(mh);
-        List<ClassSubjectsObjects> lst = new ClassSubjectsBLL().GetElementByMonHoc(su.getMaMon());
-        for (ClassSubjectsObjects cs : lst) {
-            cbblop.addItem(cs.getMaLop() + "-" + cs.getMaMon());
-        }
+        List<ScheduledObjects> lst = new ScheduledBLL().getElementByMaMon(su.getMaMon());
+        lst.forEach((sc) -> {
+            cbblop.addItem(sc.getMaLop() + "-" + sc.getMaMon());
+        });
     }
 
     public void LoadMonHoc() {
         List<SubjectsObjects> lstMonHoc = new SubjectsObjectsBLL().getElement();
-        for (SubjectsObjects su : lstMonHoc) {
+        lstMonHoc.forEach((su) -> {
             cbbMonHoc.addItem(su.getTenMon());
-        }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -217,30 +213,29 @@ public class SeePointed extends javax.swing.JInternalFrame {
 
     private void btnXemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDiemActionPerformed
         String malopmonhoc = (String) cbblop.getSelectedItem();
-        boolean Tim = false;
         String[] ma = malopmonhoc.split("-");
         StudyResultObjects diem = new StudyResultBLL().GetElementByMaLopAndMaMonAndStudentID(ma[0], ma[1], txtMSSV.getText());
-        DefaultTableModel model = (DefaultTableModel) tblBangDiem.getModel();
-        model.setRowCount(0);
-        String[] columnsName = {"MSSV", "Họ Tên", "Điểm Giữa kỳ", "Điểm Cuối kỳ", "Điểm Khác", "Điểm Tổng Kết", "Kết Quả"};
-        model.setColumnIdentifiers(columnsName);
-        Vector row = new Vector();
-        row.add(txtMSSV.getText());
-        row.add(txtHoTen.getText());
-        row.add(diem.getDiemGK());
-        row.add(diem.getDiemCK());
-        row.add(diem.getDiemKhac());
-        row.add(diem.getDiemTong());
-        String KQ;
-        if (diem.getDiemTong() < 5) {
-            KQ = "Rớt";
+        if (diem != null) {
+            DefaultTableModel model = (DefaultTableModel) tblBangDiem.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"MSSV", "Họ Tên", "Điểm Giữa kỳ", "Điểm Cuối kỳ", "Điểm Khác", "Điểm Tổng Kết", "Kết Quả"};
+            model.setColumnIdentifiers(columnsName);
+            Vector row = new Vector();
+            row.add(txtMSSV.getText());
+            row.add(txtHoTen.getText());
+            row.add(diem.getDiemGK());
+            row.add(diem.getDiemCK());
+            row.add(diem.getDiemKhac());
+            row.add(diem.getDiemTong());
+            String KQ;
+            if (diem.getDiemTong() < 5) {
+                KQ = "Rớt";
+            } else {
+                KQ = "Đậu";
+            }
+            row.add(KQ);
+            model.addRow(row);
         } else {
-            KQ = "Đậu";
-        }
-        row.add(KQ);
-        model.addRow(row);
-        if(diem == null)
-        {
             JOptionPane.showMessageDialog(this, "Không tim thấy điểm");
         }
     }//GEN-LAST:event_btnXemDiemActionPerformed

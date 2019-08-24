@@ -35,5 +35,49 @@ public class StatusReferencesPointDAL extends BaseDAL<StatusReferencesPoint>{
         }
         return lst;
     }
+
+    public StatusReferencesPoint getElementByID(int ID) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        StatusReferencesPoint sta = null;
+        try
+        {
+            sta = (StatusReferencesPoint)session.get(StatusReferencesPoint.class, ID);
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return sta;
+    }
     
+    public StatusReferencesPoint GetElementByTinhTrang(String tinhtrang)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        StatusReferencesPoint sta = null;
+        try
+        {
+            String hql = "from StatusReferencesPoint where Tentinhtrangphuckhao = :tinhtrang";
+            Query query = session.createQuery(hql);
+            query.setParameter("tinhtrang", tinhtrang);
+            List<StatusReferencesPoint> lst = query.list();
+            int size = lst.size();
+            for(int i = 0; i < size; i++)
+            {
+                sta = lst.get(i);
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+        finally
+        {
+            session.close();
+        }
+        return sta;
+    }
 }

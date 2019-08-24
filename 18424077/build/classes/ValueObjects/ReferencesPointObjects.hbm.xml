@@ -47,6 +47,7 @@ Contributor(s):
     <class name="ValueObjects.ReferencesPointObjects" table="tblphuckhaodiem">
         <composite-id>
             <key-property name="StudentID" column="StudentID" type="string" length="10"></key-property>
+            <key-property name="Malop" column="MaLop" type="string" length="10"></key-property>
             <key-property name="MaMon" column="MaMon" type="string" length="20"></key-property>
         </composite-id>
         <property name="CotDiemPhucKhao" type="string">
@@ -57,6 +58,12 @@ Contributor(s):
         </property>
         <property name="LiDo" type="string">
             <column length="255" name="LiDo"/>
+        </property>
+        <property name="NgayDangKy" type="date">
+            <column length="100" name="NgayDangKy"/>
+        </property>
+        <property name="IDtinhtrang" type="int">
+            <column length="11" name="IDtinhtrang"></column>
         </property>
     </class>
 </hibernate-mapping>

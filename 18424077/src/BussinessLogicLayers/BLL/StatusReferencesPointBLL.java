@@ -18,5 +18,13 @@ public class StatusReferencesPointBLL extends BaseBLL<StatusReferencesPoint>{
     public List<StatusReferencesPoint> getElement() {
         return new StatusReferencesPointDAL().getElement();
     }
+
+    public StatusReferencesPoint getElementByID(int ID) {
+        return new StatusReferencesPointDAL().getElementByID(ID);
+    }
     
+    public StatusReferencesPoint GetElementByTinhTrang(String tinhtrang)
+    {
+        return new StatusReferencesPointDAL().GetElementByTinhTrang(tinhtrang);
+    }
 }

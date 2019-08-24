@@ -38,15 +38,16 @@ public class ReferencesPointDAL extends BaseDAL<ReferencesPointObjects>{
         return lst;
     }
     
-    public ReferencesPointObjects GetElementByStudentIDandMaMon(String Studentid, String mamon)
+    public ReferencesPointObjects GetElementByStudentIDandMaMon(String Studentid,String malop, String mamon)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         ReferencesPointObjects rp = null;
         try
         {
-            String hql = "from ReferencesPointObjects where StudentID = :Studentid and MaMon = :mamon";
+            String hql = "from ReferencesPointObjects where StudentID = :Studentid and Malop = :malop and MaMon = :mamon";
             Query query = session.createQuery(hql);
             query.setParameter("Studentid", Studentid);
+            query.setParameter("malop", malop);
             query.setParameter("mamon", mamon);
             List<ReferencesPointObjects> lst = query.list();
             int size = lst.size();
@@ -69,7 +70,7 @@ public class ReferencesPointDAL extends BaseDAL<ReferencesPointObjects>{
     @Override
     public boolean Insert(ReferencesPointObjects OT) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(GetElementByStudentIDandMaMon(OT.getStudentID(), OT.getMaMon()) != null)
+        if(GetElementByStudentIDandMaMon(OT.getStudentID(), OT.getMalop(), OT.getMaMon()) != null)
         {
             return false;
         }
@@ -94,7 +95,7 @@ public class ReferencesPointDAL extends BaseDAL<ReferencesPointObjects>{
     @Override
     public boolean Update(ReferencesPointObjects OT) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(GetElementByStudentIDandMaMon(OT.getStudentID(), OT.getMaMon()) == null)
+        if(GetElementByStudentIDandMaMon(OT.getStudentID(), OT.getMalop(), OT.getMaMon()) == null)
         {
             return false;
         }

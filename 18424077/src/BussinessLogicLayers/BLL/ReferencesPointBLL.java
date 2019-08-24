@@ -18,9 +18,9 @@ public class ReferencesPointBLL extends BaseBLL<ReferencesPointObjects>{
         return new ReferencesPointDAL().getElement();
     }
     
-    public ReferencesPointObjects GetElementByStudentIDandMaMon(String Studentid, String mamon)
+    public ReferencesPointObjects GetElementByStudentIDandMaMon(String Studentid, String malop, String mamon)
     {
-        return new ReferencesPointDAL().GetElementByStudentIDandMaMon(Studentid, mamon);
+        return new ReferencesPointDAL().GetElementByStudentIDandMaMon(Studentid, malop, mamon);
     }
 
     @Override

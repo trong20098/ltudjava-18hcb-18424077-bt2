@@ -5,7 +5,7 @@
  */
 package ValueObjects;
 import java.io.*;
-
+import java.util.*;
 /**
  *
  * @author Nguy Minh Trong
@@ -13,10 +13,13 @@ import java.io.*;
 public class ReferencesPointObjects implements Serializable{
     private static final long serialVersionUID = 1L;
     private String StudentID;
+    private String Malop;
     private String MaMon;
     private String CotDiemPhucKhao;
     private float DiemMongMuon;
     private String LiDo;
+    private Date NgayDangKy;
+    private int IDtinhtrang;
     
     public String getStudentID() {
         return StudentID;
@@ -24,6 +27,14 @@ public class ReferencesPointObjects implements Serializable{
 
     public void setStudentID(String StudentID) {
         this.StudentID = StudentID;
+    }
+
+    public String getMalop() {
+        return Malop;
+    }
+
+    public void setMalop(String Malop) {
+        this.Malop = Malop;
     }
 
     public String getMaMon() {
@@ -56,6 +67,22 @@ public class ReferencesPointObjects implements Serializable{
 
     public void setLiDo(String LiDo) {
         this.LiDo = LiDo;
+    }
+
+    public Date getNgayDangKy() {
+        return NgayDangKy;
+    }
+
+    public void setNgayDangKy(Date NgayDangKy) {
+        this.NgayDangKy = NgayDangKy;
+    }
+
+    public int getIDtinhtrang() {
+        return IDtinhtrang;
+    }
+
+    public void setIDtinhtrang(int IDtinhtrang) {
+        this.IDtinhtrang = IDtinhtrang;
     }
     
 }
