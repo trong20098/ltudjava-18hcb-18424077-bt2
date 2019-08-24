@@ -54,5 +54,6 @@ Contributor(s):
     <mapping resource="ValueObjects/StudyResultObjects.hbm.xml"/>
     <mapping resource="ValueObjects/ReferencesPointObjects.hbm.xml"/>
     <mapping resource="ValueObjects/StatusReferencesPoint.hbm.xml"/>
+    <mapping resource="ValueObjects/ExpireTimeObjects.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

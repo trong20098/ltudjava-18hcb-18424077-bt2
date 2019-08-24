@@ -7,6 +7,7 @@ package Presentation;
 
 import BussinessLogicLayers.BLL.*;
 import ValueObjects.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +26,19 @@ public final class SeePointed extends javax.swing.JInternalFrame {
      * @param user
      */
     public SeePointed(String user) {
-        username = user;
         initComponents();
+        username = user;
+        btnPhucKhaoDiem.setVisible(false);
         LoadMonHoc();
         txtMSSV.setText(user);
         StudentObjects st = new StudentBLL().GetElementByID(txtMSSV.getText());
         txtHoTen.setText(st.getHoten());
+        List<ExpireTimeObjects> lst = new ExprireTimeBLL().getElement();
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dt2 = new SimpleDateFormat("dd/MM/yyyy");
+        lst.forEach((exp) -> {
+            lblthongbao.setText("Thời gian phúc khảo từ ngày " + dt1.format(exp.getNgaybatdau()) + " đến ngày " + dt2.format(exp.getNgayketthuc()));
+        });
     }
 
     public static String filename(String str, char sep, char ext) {
@@ -73,6 +81,7 @@ public final class SeePointed extends javax.swing.JInternalFrame {
         btnXemDiem = new javax.swing.JButton();
         cbblop = new javax.swing.JComboBox<>();
         btnPhucKhaoDiem = new javax.swing.JButton();
+        lblthongbao = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -140,6 +149,8 @@ public final class SeePointed extends javax.swing.JInternalFrame {
             }
         });
 
+        lblthongbao.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,13 +180,14 @@ public final class SeePointed extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(cbbMonHoc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbblop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(cbblop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lblthongbao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(563, 563, 563))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnXemDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
+                                .addGap(40, 40, 40)
                                 .addComponent(btnPhucKhaoDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(593, 593, 593))))))
+                                .addGap(596, 596, 596))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,16 +208,16 @@ public final class SeePointed extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbblop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnXemDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPhucKhaoDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(77, 77, 77)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblthongbao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXemDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPhucKhaoDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -238,6 +250,18 @@ public final class SeePointed extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Không tim thấy điểm");
         }
+        List<ExpireTimeObjects> lst = new ExprireTimeBLL().getElement();
+        lst.forEach((exp) -> {
+            long milis = System.currentTimeMillis();
+            java.util.Date date = new java.sql.Date(milis);
+            if (exp.getNgayketthuc().compareTo(date) > 0) {
+                btnPhucKhaoDiem.setVisible(true);
+            }
+            else
+            {
+                btnPhucKhaoDiem.setVisible(false);
+            }
+        });
     }//GEN-LAST:event_btnXemDiemActionPerformed
 
     private void cbbMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMonHocActionPerformed
@@ -262,6 +286,7 @@ public final class SeePointed extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JLabel lblMSSV;
     private javax.swing.JLabel lblMonHoc;
+    private javax.swing.JLabel lblthongbao;
     private javax.swing.JTable tblBangDiem;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtMSSV;

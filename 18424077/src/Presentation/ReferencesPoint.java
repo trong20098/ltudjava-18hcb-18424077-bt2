@@ -29,6 +29,7 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
     public ReferencesPoint() {
         initComponents();
         LoadDanhSachPhucKhao();
+        LoadLichPhucKhao();
     }
 
     @SuppressWarnings("unchecked")
@@ -207,37 +208,66 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         int rows = tblPhucKhaoDiem.getRowCount();
         for (int row = 0; row < rows; row++) {
             String studentid = model.getValueAt(row, 1).toString();
-            String fullname = model.getValueAt(row, 2).toString();
-            String monthi = model.getValueAt(row, 3).toString();
             String malopmonhoc = model.getValueAt(row, 4).toString();
             String[] malop = malopmonhoc.split("-");
-            String cotdiemcanphuckhao = model.getValueAt(row, 5).toString();
-            String diemmongmuon = model.getValueAt(row, 6).toString();
-            String lido = model.getValueAt(row, 7).toString();
-            String ngaydangky = model.getValueAt(row, 8).toString();
             String tinhtrangphuckhao = model.getValueAt(row, 9).toString();
             StatusReferencesPoint sta = new StatusReferencesPointBLL().GetElementByTinhTrang(tinhtrangphuckhao);
             ReferencesPointObjects rp = new ReferencesPointBLL().GetElementByStudentIDandMaMon(studentid, malop[0], malop[1]);
-            if(rp != null)
-            {
+            if (rp != null) {
                 rp.setIDtinhtrang(sta.getID());
                 kq = new ReferencesPointBLL().Update(rp);
             }
         }
-        if(kq == true)
-        {
+        if (kq == true) {
             JOptionPane.showMessageDialog(this, "Bạn đã cập nhật thành công");
-        }
-        else
-        {
+            LoadDanhSachPhucKhao();
+        } else {
             JOptionPane.showMessageDialog(this, "Bạn đã cập nhật không thành công");
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTaoLichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoLichActionPerformed
-
+        Date ngaybatdau = dtcBegin.getDate();
+        Date ngaykethuc = dtcEnd.getDate();
+        ExpireTimeObjects exp = new ExprireTimeBLL().GetElementByID(1);
+        if(exp != null)
+        {
+            exp.setNgaybatdau(ngaybatdau);
+            exp.setNgayketthuc(ngaykethuc);
+            boolean KQ = new ExprireTimeBLL().Update(exp);
+            if(KQ == true)
+            {
+                JOptionPane.showMessageDialog(this, "Bạn đã tạo lịch thành công");
+                LoadLichPhucKhao();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Bạn đã tạo lịch không thành công");
+            }
+        }
     }//GEN-LAST:event_btnTaoLichActionPerformed
 
+    private void LoadLichPhucKhao()
+    {
+        List<ExpireTimeObjects> lst = new ExprireTimeBLL().getElement();
+        tblLichPhucKhao.setRowHeight(30);
+        DefaultTableModel model = (DefaultTableModel) tblLichPhucKhao.getModel();
+        model.setRowCount(0);
+        String[] columnsName = {"STT", "Ngày bắt đầu phúc khảo", "Ngày kết thúc phúc khảo"};
+        model.setColumnIdentifiers(columnsName);
+        for(ExpireTimeObjects exp : lst)
+        {
+            Vector row = new Vector();
+            row.add(exp.getID());
+            SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+            row.add(dt.format(exp.getNgaybatdau()));
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+            row.add(dt1.format(exp.getNgayketthuc()));
+            model.addRow(row);
+        }
+        tblLichPhucKhao.setModel(model);
+    }
+    
     private void LoadDanhSachPhucKhao() {
         List<ReferencesPointObjects> lst = new ReferencesPointBLL().getElement();
         tblPhucKhaoDiem.setRowHeight(30);
