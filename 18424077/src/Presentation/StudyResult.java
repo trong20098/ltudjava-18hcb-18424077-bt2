@@ -126,7 +126,6 @@ public final class StudyResult extends javax.swing.JInternalFrame {
             }
             tblDanhSachDiem.setModel(model);
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -501,6 +500,8 @@ public final class StudyResult extends javax.swing.JInternalFrame {
             boolean KQ = new StudyResultBLL().Update(sr);
             if (KQ == true) {
                 JOptionPane.showMessageDialog(this, "Bạn đã cập nhật thành công");
+                LoadDiemSinhVien(file[0], file[1]);
+                cbbLop.setSelectedItem(file[0] + "-" + file[1]);
             } else {
                 JOptionPane.showMessageDialog(this, "Bạn đã cập nhật không thành công");
             }

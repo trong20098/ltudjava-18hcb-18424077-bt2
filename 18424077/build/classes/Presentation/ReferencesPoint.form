@@ -22,13 +22,17 @@
           <Component id="lblDanhSach" pref="1590" max="32767" attributes="0"/>
           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
               <Component id="btnCapNhat" min="-2" pref="218" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnHuy" min="-2" pref="153" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="pnDatLich" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnDatLich" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -36,15 +40,15 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblDanhSach" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="265" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="149" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnCapNhat" max="32767" attributes="0"/>
-                  <Component id="btnHuy" pref="60" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnCapNhat" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnHuy" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="pnDatLich" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
+              <EmptySpace pref="136" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -137,16 +141,16 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblKetThuc" min="-2" pref="145" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dtcEnd" pref="188" max="32767" attributes="0"/>
+                                  <Component id="dtcEnd" min="-2" pref="198" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblBatDau" min="-2" pref="145" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="dtcBegin" max="32767" attributes="0"/>
+                                  <Component id="dtcBegin" min="-2" pref="198" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -155,8 +159,8 @@
                           <Component id="btnTaoLich" min="-2" pref="149" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="1167" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -172,9 +176,9 @@
                               <Component id="lblBatDau" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblKetThuc" min="-2" pref="42" max="-2" attributes="0"/>
-                              <Component id="dtcEnd" min="-2" pref="42" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblKetThuc" max="32767" attributes="0"/>
+                              <Component id="dtcEnd" pref="42" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnTaoLich" min="-2" pref="45" max="-2" attributes="0"/>
@@ -219,16 +223,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoLichActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dtcBegin">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
-          </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dtcEnd">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -251,6 +245,10 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="com.toedter.calendar.JDateChooser" name="dtcBegin">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dtcEnd">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

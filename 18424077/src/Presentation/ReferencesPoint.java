@@ -45,10 +45,10 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         lblBatDau = new javax.swing.JLabel();
         lblKetThuc = new javax.swing.JLabel();
         btnTaoLich = new javax.swing.JButton();
-        dtcBegin = new com.toedter.calendar.JDateChooser();
-        dtcEnd = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLichPhucKhao = new javax.swing.JTable();
+        dtcBegin = new com.toedter.calendar.JDateChooser();
+        dtcEnd = new com.toedter.calendar.JDateChooser();
 
         lblDanhSach.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lblDanhSach.setForeground(new java.awt.Color(255, 0, 51));
@@ -110,10 +110,6 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
             }
         });
 
-        dtcBegin.setDateFormatString("dd/MM/yyyy");
-
-        dtcEnd.setDateFormatString("dd/MM/yyyy");
-
         tblLichPhucKhao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -132,20 +128,20 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
                 .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDatLichLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDatLichLayout.createSequentialGroup()
                                 .addComponent(lblKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dtcEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                                .addComponent(dtcEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnDatLichLayout.createSequentialGroup()
                                 .addComponent(lblBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dtcBegin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(dtcBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnDatLichLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(btnTaoLich, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1167, Short.MAX_VALUE))
         );
         pnDatLichLayout.setVerticalGroup(
             pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,9 +154,9 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
                             .addComponent(dtcBegin, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                             .addComponent(lblBatDau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dtcEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnDatLichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dtcEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(btnTaoLich, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -173,26 +169,29 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
             .addComponent(lblDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, 1590, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(275, 275, 275)
+                .addGap(263, 263, 263)
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(pnDatLich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnDatLich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblDanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHuy, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(pnDatLich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(232, 232, 232))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,81 +229,100 @@ public class ReferencesPoint extends javax.swing.JInternalFrame {
         Date ngaybatdau = dtcBegin.getDate();
         Date ngaykethuc = dtcEnd.getDate();
         ExpireTimeObjects exp = new ExprireTimeBLL().GetElementByID(1);
-        if(exp != null)
-        {
+        if (exp != null) {
             exp.setNgaybatdau(ngaybatdau);
             exp.setNgayketthuc(ngaykethuc);
             boolean KQ = new ExprireTimeBLL().Update(exp);
-            if(KQ == true)
-            {
+            if (KQ == true) {
                 JOptionPane.showMessageDialog(this, "Bạn đã tạo lịch thành công");
                 LoadLichPhucKhao();
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "Bạn đã tạo lịch không thành công");
             }
         }
     }//GEN-LAST:event_btnTaoLichActionPerformed
 
-    private void LoadLichPhucKhao()
-    {
+    private void LoadLichPhucKhao() {
         List<ExpireTimeObjects> lst = new ExprireTimeBLL().getElement();
-        tblLichPhucKhao.setRowHeight(30);
-        DefaultTableModel model = (DefaultTableModel) tblLichPhucKhao.getModel();
-        model.setRowCount(0);
-        String[] columnsName = {"STT", "Ngày bắt đầu phúc khảo", "Ngày kết thúc phúc khảo"};
-        model.setColumnIdentifiers(columnsName);
-        for(ExpireTimeObjects exp : lst)
-        {
-            Vector row = new Vector();
-            row.add(exp.getID());
-            SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-            row.add(dt.format(exp.getNgaybatdau()));
-            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-            row.add(dt1.format(exp.getNgayketthuc()));
-            model.addRow(row);
+        if (!lst.isEmpty()) {
+            tblLichPhucKhao.setRowHeight(30);
+            DefaultTableModel model = (DefaultTableModel) tblLichPhucKhao.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"STT", "Ngày bắt đầu phúc khảo", "Ngày kết thúc phúc khảo"};
+            model.setColumnIdentifiers(columnsName);
+            for(ExpireTimeObjects exp : lst)
+            {
+                Vector row = new Vector();
+                row.add(exp.getID());
+                SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                if(exp.getNgaybatdau() != null)
+                {
+                    row.add(dt.format(exp.getNgaybatdau()));
+                }
+                if(exp.getNgayketthuc() != null)
+                {
+                    row.add(dt.format(exp.getNgayketthuc()));
+                }
+                model.addRow(row);
+            }
+            tblLichPhucKhao.setModel(model);
         }
-        tblLichPhucKhao.setModel(model);
+        else
+        {
+            tblLichPhucKhao.setRowHeight(30);
+            DefaultTableModel model = (DefaultTableModel) tblLichPhucKhao.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"STT", "Ngày bắt đầu phúc khảo", "Ngày kết thúc phúc khảo"};
+            model.setColumnIdentifiers(columnsName);
+        }
     }
-    
+
     private void LoadDanhSachPhucKhao() {
         List<ReferencesPointObjects> lst = new ReferencesPointBLL().getElement();
-        tblPhucKhaoDiem.setRowHeight(30);
-        DefaultTableModel model = (DefaultTableModel) tblPhucKhaoDiem.getModel();
-        model.setRowCount(0);
-        String[] columnsName = {"STT", "Mã số sinh viên", "Họ tên", "Môn thi", "Lớp môn học", "Cột điểm cần phúc khảo", "Điểm mong muốn", "Lí do", "Ngày đăng ký", "Tình trạng phúc khảo"};
-        model.setColumnIdentifiers(columnsName);
-        int i = 1;
-        for (ReferencesPointObjects rp : lst) {
-            Vector row = new Vector();
-            String number = Integer.toString(i);
-            row.add(number);
-            row.add(rp.getStudentID());
-            StudentObjects st = new StudentBLL().GetElementByID(rp.getStudentID());
-            row.add(st.getHoten());
-            SubjectsObjects su = new SubjectsObjectsBLL().GetElementByID(rp.getMaMon());
-            row.add(su.getTenMon());
-            row.add(rp.getMalop() + '-' + rp.getMaMon());
-            row.add(rp.getCotDiemPhucKhao());
-            row.add(rp.getDiemMongMuon());
-            row.add(rp.getLiDo());
-            SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-            row.add(dt.format(rp.getNgayDangKy()));
-            TableColumn column = tblPhucKhaoDiem.getColumnModel().getColumn(9);
-            JComboBox<String> cbb = new JComboBox<>();
-            List<StatusReferencesPoint> list = new StatusReferencesPointBLL().getElement();
-            list.forEach((str) -> {
-                cbb.addItem(str.getTentinhtrangphuckhao());
-            });
-            column.setCellEditor(new DefaultCellEditor(cbb));
-            StatusReferencesPoint sr = new StatusReferencesPointBLL().getElementByID(rp.getIDtinhtrang());
-            String tinhtrang = sr.getTentinhtrangphuckhao();
-            row.add(sr.getTentinhtrangphuckhao());
-            model.addRow(row);
-            i++;
+        if (!lst.isEmpty()) {
+            tblPhucKhaoDiem.setRowHeight(30);
+            DefaultTableModel model = (DefaultTableModel) tblPhucKhaoDiem.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"STT", "Mã số sinh viên", "Họ tên", "Môn thi", "Lớp môn học", "Cột điểm cần phúc khảo", "Điểm mong muốn", "Lí do", "Ngày đăng ký", "Tình trạng phúc khảo"};
+            model.setColumnIdentifiers(columnsName);
+            int i = 1;
+            for (ReferencesPointObjects rp : lst) {
+                Vector row = new Vector();
+                String number = Integer.toString(i);
+                row.add(number);
+                row.add(rp.getStudentID());
+                StudentObjects st = new StudentBLL().GetElementByID(rp.getStudentID());
+                row.add(st.getHoten());
+                SubjectsObjects su = new SubjectsObjectsBLL().GetElementByID(rp.getMaMon());
+                row.add(su.getTenMon());
+                row.add(rp.getMalop() + '-' + rp.getMaMon());
+                row.add(rp.getCotDiemPhucKhao());
+                row.add(rp.getDiemMongMuon());
+                row.add(rp.getLiDo());
+                SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                row.add(dt.format(rp.getNgayDangKy()));
+                TableColumn column = tblPhucKhaoDiem.getColumnModel().getColumn(9);
+                JComboBox<String> cbb = new JComboBox<>();
+                List<StatusReferencesPoint> list = new StatusReferencesPointBLL().getElement();
+                list.forEach((str) -> {
+                    cbb.addItem(str.getTentinhtrangphuckhao());
+                });
+                column.setCellEditor(new DefaultCellEditor(cbb));
+                StatusReferencesPoint sr = new StatusReferencesPointBLL().getElementByID(rp.getIDtinhtrang());
+                row.add(sr.getTentinhtrangphuckhao());
+                model.addRow(row);
+                i++;
+            }
+            tblPhucKhaoDiem.setModel(model);
         }
-        tblPhucKhaoDiem.setModel(model);
+        else
+        {
+            tblPhucKhaoDiem.setRowHeight(30);
+            DefaultTableModel model = (DefaultTableModel) tblPhucKhaoDiem.getModel();
+            model.setRowCount(0);
+            String[] columnsName = {"STT", "Mã số sinh viên", "Họ tên", "Môn thi", "Lớp môn học", "Cột điểm cần phúc khảo", "Điểm mong muốn", "Lí do", "Ngày đăng ký", "Tình trạng phúc khảo"};
+            model.setColumnIdentifiers(columnsName);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
