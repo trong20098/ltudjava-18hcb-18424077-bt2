@@ -458,9 +458,7 @@ public final class StudyResult extends javax.swing.JInternalFrame {
                         new StudyResultBLL().Insert(sr);
                     }
                     LoadDiemSinhVien(fi, mh);
-                    cbbLop.removeAllItems();
-                    LoadLopMonHoc();
-                    cbbLop.setSelectedItem(fi);
+                    cbbLop.setSelectedItem(fi + "-" + mh);
                 } catch (Exception ex) {
                     ex.getMessage();
                 }
