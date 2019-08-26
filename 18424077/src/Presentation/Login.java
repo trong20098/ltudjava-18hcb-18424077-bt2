@@ -142,7 +142,7 @@ public class Login extends javax.swing.JFrame {
         String pass = new String(txtpassword.getPassword());
         List<UserObjects> lst = new UserBLL().CheckLogin(user, pass);
         boolean isExisted = false;
-        if (lst != null) {
+        if (lst.size() > 0) {
             isExisted = true;
             this.setVisible(false);
             MainSoftware main = new MainSoftware(user);
